@@ -1,37 +1,45 @@
 extends KinematicBody
 
-export var mouse_sensitivity = 0.05
+onready var _body = $Body
+onready var _camera = $Camera
+# Used for first person picking? But do we really need it
+onready var interaction = $Camera/firstPerson/RayCast
+var picked_Object
+
 export var speed = 10
 export var acceleration = 10
 export var jump = 8
+export var gravity = 18.2
+
 export var coyoteTime = 0.2
 var coyoteTimeCounter = 0.0
 
-export var gravity = 18.2
-
-onready var _body = $Body
-onready var _head = $Head
-
 var velocity = Vector3.ZERO
-var look_rotation = Vector3.ZERO
 var direction = Vector3.ZERO
+var prevDirection = Vector3.ZERO
+var cameraIsActive = false
+var defaultSpawnPoint
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	_body.visible = false # Disabled player model in first person so it cant be seen 
-	_head.rotation = rotation # Set Initial Camera to be aligned with Player model rotation
+	defaultSpawnPoint = global_translation
+	prevDirection = _camera.rotation
 
 func _physics_process(delta):
-	# Sets the head(camera) rotation based on mouse movement
-	_head.rotation_degrees.x = look_rotation.x
-	_head.rotation_degrees.y = look_rotation.y
 	# Set player movement to WASD controls, normalize and rotate so direction moved is always the camera front
 	direction = Vector3(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), 
 		0,
 		Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
-	).normalized().rotated(Vector3.UP, _head.rotation.y)
+	).normalized().rotated(Vector3.UP, _camera.rotation.y)
 	
+	# Sync Camera when switching
+	if _body.visible:
+		if direction != Vector3.ZERO:
+			_body.look_at(translation + direction, Vector3.UP)
+			prevDirection = _body.rotation
+	else:
+		_body.rotation.y = _camera.rotation.y
+		prevDirection = _body.rotation
 	# Interpolate current velocity to desired velocity
 	velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta) 
 	velocity.z = lerp(velocity.z, direction.z * speed, acceleration * delta)
@@ -51,9 +59,15 @@ func _jump(delta):
 	if (Input.is_action_just_released("jump") and velocity.y > 0.0):
 		coyoteTimeCounter = 0.0
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		look_rotation.x -= event.relative.y * mouse_sensitivity
-		look_rotation.x = clamp(look_rotation.x, -89.9, 89.9)
-		look_rotation.y -= event.relative.x * mouse_sensitivity
-		look_rotation.y = wrapf(look_rotation.y, 0.0, 360.0)
+func _on_level_test_camera_toggled():
+	cameraIsActive = !cameraIsActive
+	_camera.get_node("firstPerson").set_process(cameraIsActive)
+	if cameraIsActive:
+		_camera.get_node("firstPerson").make_current()
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		_body.visible = false
+		_camera.look_rotation.y = rad2deg(prevDirection.y)
+		_camera.look_rotation.x = rad2deg(prevDirection.x)
+	else:
+		_body.visible = true
+		

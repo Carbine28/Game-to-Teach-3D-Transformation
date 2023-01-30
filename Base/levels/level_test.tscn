@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://levels/level_test.gd" type="Script" id=2]
+[ext_resource path="res://transformable_Objects/box.tscn" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 15, 1, 15 )
@@ -12,8 +14,18 @@ albedo_color = Color( 0.682353, 0.243137, 0.243137, 1 )
 material = SubResource( 3 )
 size = Vector3( 30, 2, 30 )
 
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.941176, 0.941176, 0.941176, 1 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 60, 1, 60 )
+
 [node name="level_test" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0143375, -0.0479512, 0.000162125 )
+script = ExtResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100951, 0.79234, 0.0118334 )
 
 [node name="Floor" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00493431, 0, 0.0344582 )
@@ -31,5 +43,31 @@ transform = Transform( 1, 0, 0, 0, 0.59565, 0.803244, 0, -0.803244, 0.59565, 0, 
 light_energy = 0.3
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100951, 0.79234, 0.0118334 )
+[node name="Walls" type="Spatial" parent="."]
+
+[node name="Wall" type="StaticBody" parent="Walls"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00493431, 12.7687, -14.8949 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Walls/Wall"]
+transform = Transform( 0.999657, 0, 0, 0, 0.999657, 0, 0, 0, 0.999657, 0, -1, 0 )
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Walls/Wall"]
+transform = Transform( 1, 0, 0, 0, 1.66345, -2.90005e-08, 0, -2.90005e-08, 1, 0, -1.67691, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.871128, 0.491056, 0, -0.491056, 0.871128, 0, 8.76117, 15.1 )
+
+[node name="OutofBoundsFloor" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.4613, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="OutofBoundsFloor"]
+shape = SubResource( 5 )
+
+[node name="spatial" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41955, 0.475794, -3.91853 )
+
+[connection signal="camera_toggled" from="." to="Player" method="_on_level_test_camera_toggled"]
+[connection signal="body_entered" from="OutofBoundsFloor" to="." method="_on_OutofBoundsFloor_body_entered"]
