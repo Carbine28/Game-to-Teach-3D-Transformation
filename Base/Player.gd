@@ -9,7 +9,6 @@ var coyoteTimeCounter = 0.0
 
 export var gravity = 18.2
 
-
 onready var _body = $Body
 onready var _head = $Head
 
@@ -19,7 +18,8 @@ var direction = Vector3.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	_body.visible = false
+	_body.visible = false # Disabled player model in first person so it cant be seen 
+	_head.rotation = rotation # Set Initial Camera to be aligned with Player model rotation
 
 func _physics_process(delta):
 	# Sets the head(camera) rotation based on mouse movement
@@ -35,7 +35,11 @@ func _physics_process(delta):
 	# Interpolate current velocity to desired velocity
 	velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta) 
 	velocity.z = lerp(velocity.z, direction.z * speed, acceleration * delta)
-	
+	_jump(delta) # Check for jump inputs
+	# Finally move player
+	velocity = move_and_slide(velocity, Vector3.UP) 
+
+func _jump(delta):
 	# Coyote time based jumps 
 	if is_on_floor():
 		coyoteTimeCounter = coyoteTime
@@ -46,14 +50,10 @@ func _physics_process(delta):
 		velocity.y = jump
 	if (Input.is_action_just_released("jump") and velocity.y > 0.0):
 		coyoteTimeCounter = 0.0
-	
-	# Finally move player
-	velocity = move_and_slide(velocity, Vector3.UP) 
-
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		look_rotation.x -= event.relative.y * mouse_sensitivity
-		look_rotation.x = clamp(look_rotation.x, -89.0, 89.0)
+		look_rotation.x = clamp(look_rotation.x, -89.9, 89.9)
 		look_rotation.y -= event.relative.x * mouse_sensitivity
 		look_rotation.y = wrapf(look_rotation.y, 0.0, 360.0)
