@@ -1,0 +1,98 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.109804, 0.8, 0.52549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+[node name="TransformableGUI" type="PanelContainer"]
+anchor_right = 0.533
+anchor_bottom = 1.0
+margin_right = 0.399963
+margin_bottom = 8.0
+
+[node name="VLayout" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 633.0
+margin_bottom = 721.0
+
+[node name="UIHeader" type="HBoxContainer" parent="VLayout"]
+margin_right = 626.0
+
+[node name="BlocksHeader" type="Panel" parent="VLayout/UIHeader"]
+margin_right = 626.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="BlocksLabel" type="Label" parent="VLayout/UIHeader/BlocksHeader"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 625.0
+margin_bottom = 41.0
+size_flags_vertical = 1
+text = "Blocks"
+align = 1
+valign = 1
+
+[node name="DrawingArea" type="VBoxContainer" parent="VLayout"]
+margin_top = 4.0
+margin_right = 626.0
+margin_bottom = 710.0
+size_flags_vertical = 3
+
+[node name="BlocksContainer" type="Panel" parent="VLayout/DrawingArea"]
+margin_right = 626.0
+margin_bottom = 702.0
+size_flags_vertical = 3
+
+[node name="Padding" type="MarginContainer" parent="VLayout/DrawingArea/BlocksContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VLayout/DrawingArea/BlocksContainer/Padding"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TargetContainer" type="Panel" parent="VLayout/DrawingArea"]
+margin_top = 706.0
+margin_right = 626.0
+margin_bottom = 706.0
+
+[node name="Padding" type="MarginContainer" parent="VLayout/DrawingArea/TargetContainer"]
+anchor_right = 0.998
+anchor_bottom = 1.0
+margin_right = 0.252014
+margin_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VLayout/DrawingArea/TargetContainer/Padding"]
+margin_right = 625.0
+margin_bottom = 1.0
+
+[node name="ButtonArea" type="HBoxContainer" parent="VLayout"]
+margin_top = 714.0
+margin_right = 626.0
+margin_bottom = 714.0
+
+[node name="BlockBG" type="Panel" parent="VLayout/ButtonArea"]
+margin_right = 626.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 2 )
+
+[node name="Clear Blocks" type="Button" parent="VLayout/ButtonArea/BlockBG"]
+anchor_top = 0.25
+anchor_bottom = 0.783
+margin_left = 33.0
+margin_top = -8.0
+margin_right = 233.0
+margin_bottom = 8.02
+text = "Clear Blocks"
+
+[node name="Run Blocks" type="Button" parent="VLayout/ButtonArea/BlockBG"]
+margin_left = 353.0
+margin_top = 7.0
+margin_right = 577.0
+margin_bottom = 55.0
+size_flags_horizontal = 3
+text = "Run Blocks"

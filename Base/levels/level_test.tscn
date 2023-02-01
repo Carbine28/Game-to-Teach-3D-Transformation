@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/level_test.gd" type="Script" id=2]
 [ext_resource path="res://transformable_Objects/box.tscn" type="PackedScene" id=3]
 
@@ -66,7 +66,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.4613, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="OutofBoundsFloor"]
 shape = SubResource( 5 )
 
-[node name="spatial" parent="." instance=ExtResource( 3 )]
+[node name="box" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41955, 0.475794, -3.91853 )
 
 [connection signal="camera_toggled" from="." to="Player" method="_on_level_test_camera_toggled"]
