@@ -1,4 +1,4 @@
-extends KinematicBody
+extends StaticBody
 
 onready var _gizmo = $gizmo
 # Position Variables
@@ -19,7 +19,7 @@ func _ready():
 func _physics_process(delta):
 	if (currentPosition - nextPosition).length() > 0.1:
 		var direction = (nextPosition - currentPosition).normalized()
-		#move_and_slide(direction * speed, Vector3.UP)
+		global_translation += (direction)  * delta 
 		
 	
 func _process(delta):
