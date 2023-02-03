@@ -1,0 +1,193 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://GUI/transformableUI/TransformBlock.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/transformableUI/SourceContainer.gd" type="Script" id=3]
+[ext_resource path="res://GUI/transformableUI/DrawContainer.gd" type="Script" id=4]
+[ext_resource path="res://GUI/transformableUI/TransformableGUI.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.254902, 0.254902, 0.254902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.313726, 0.341176, 0.364706, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.592157, 0.603922, 0.615686, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.239216, 0.239216, 0.239216, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.0509804, 0.290196, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.0509804, 0.290196, 1, 1 )
+
+[node name="TransformableGUI" type="PanelContainer"]
+anchor_right = 0.447
+anchor_bottom = 1.0
+margin_right = 0.599976
+script = ExtResource( 5 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 530.0
+margin_bottom = 713.0
+
+[node name="headerpanel" type="Panel" parent="VBoxContainer"]
+margin_right = 523.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+custom_styles/panel = SubResource( 1 )
+
+[node name="Header" type="Label" parent="VBoxContainer/headerpanel"]
+margin_right = 529.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.18
+text = "Source BLocks"
+align = 1
+valign = 1
+
+[node name="SourceContainer" type="Panel" parent="VBoxContainer"]
+margin_top = 38.0
+margin_right = 523.0
+margin_bottom = 129.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Padding" type="MarginContainer" parent="VBoxContainer/SourceContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -268.0
+margin_top = -45.0
+margin_right = 268.0
+margin_bottom = 45.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="SourceRows" type="HBoxContainer" parent="VBoxContainer/SourceContainer/Padding"]
+margin_right = 536.0
+margin_bottom = 90.0
+alignment = 1
+
+[node name="TransformBlock" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
+margin_left = 76.0
+margin_top = 15.0
+margin_right = 201.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 125, 60 )
+size_flags_vertical = 6
+label = "Translate"
+
+[node name="TransformBlock2" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
+margin_left = 205.0
+margin_top = 15.0
+margin_right = 330.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 125, 60 )
+size_flags_vertical = 6
+label = "Rotate"
+block_Type = 1
+
+[node name="TransformBlock3" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
+margin_left = 334.0
+margin_top = 15.0
+margin_right = 459.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 125, 60 )
+size_flags_vertical = 6
+label = "Scale"
+block_Type = 2
+
+[node name="DrawContainer" type="Panel" parent="VBoxContainer"]
+margin_top = 133.0
+margin_right = 523.0
+margin_bottom = 588.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+custom_styles/panel = SubResource( 3 )
+script = ExtResource( 4 )
+
+[node name="Padding" type="MarginContainer" parent="VBoxContainer/DrawContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -268.5
+margin_top = -232.0
+margin_right = 268.5
+margin_bottom = 232.0
+mouse_filter = 1
+
+[node name="DrawColumn" type="VBoxContainer" parent="VBoxContainer/DrawContainer/Padding"]
+margin_left = 143.0
+margin_top = 32.0
+margin_right = 393.0
+margin_bottom = 432.0
+rect_min_size = Vector2( 250, 400 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ButtonPanel" type="Panel" parent="VBoxContainer"]
+margin_top = 592.0
+margin_right = 523.0
+margin_bottom = 706.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+custom_styles/panel = SubResource( 4 )
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ButtonPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -268.5
+margin_top = -58.5
+margin_right = 268.5
+margin_bottom = 58.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ButtonPanel/MarginContainer"]
+margin_right = 537.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="clearButton" type="Button" parent="VBoxContainer/ButtonPanel/MarginContainer/HBoxContainer"]
+margin_left = 83.0
+margin_top = 36.0
+margin_right = 183.0
+margin_bottom = 81.0
+rect_min_size = Vector2( 100, 45 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_styles/normal = SubResource( 5 )
+text = "Clear Blocks"
+
+[node name="runButton" type="Button" parent="VBoxContainer/ButtonPanel/MarginContainer/HBoxContainer"]
+margin_left = 353.0
+margin_top = 36.0
+margin_right = 453.0
+margin_bottom = 81.0
+rect_min_size = Vector2( 100, 45 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_styles/normal = SubResource( 6 )
+text = "Run Blocks"
+
+[connection signal="drawArea_block_deleted" from="." to="VBoxContainer/DrawContainer" method="_on_TransformableGUI_drawArea_block_deleted"]
+[connection signal="child_entered_tree" from="VBoxContainer/DrawContainer/Padding/DrawColumn" to="." method="_on_DrawColumn_child_entered_tree"]
+[connection signal="child_exiting_tree" from="VBoxContainer/DrawContainer/Padding/DrawColumn" to="." method="_on_DrawColumn_child_exiting_tree"]
+[connection signal="pressed" from="VBoxContainer/ButtonPanel/MarginContainer/HBoxContainer/clearButton" to="." method="_on_clearButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonPanel/MarginContainer/HBoxContainer/clearButton" to="VBoxContainer/DrawContainer" method="_on_clearButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonPanel/MarginContainer/HBoxContainer/runButton" to="." method="_on_runButton_pressed"]

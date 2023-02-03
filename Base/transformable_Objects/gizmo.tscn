@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://materials/redArrow.tres" type="Material" id=1]
+
+[sub_resource type="CubeMesh" id=5]
+material = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.290196, 0.505882, 0.992157, 1 )
+
+[sub_resource type="PrismMesh" id=7]
+material = SubResource( 8 )
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 1, 0.180392, 0.180392, 1 )
+
+[sub_resource type="CubeMesh" id=10]
+material = SubResource( 9 )
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_color = Color( 1, 0.180392, 0.180392, 1 )
+
+[sub_resource type="PrismMesh" id=12]
+material = SubResource( 11 )
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_color = Color( 0.219608, 1, 0.133333, 1 )
+
+[sub_resource type="CubeMesh" id=14]
+material = SubResource( 13 )
+
+[sub_resource type="SpatialMaterial" id=15]
+albedo_color = Color( 0.219608, 1, 0.133333, 1 )
+
+[sub_resource type="PrismMesh" id=16]
+material = SubResource( 15 )
+
+[node name="gizmo" type="Spatial"]
+
+[node name="arrowRod_Z" type="MeshInstance" parent="."]
+transform = Transform( 0.0236533, 0, 0, 0, 0.0213008, 0, 0, 0, 0.619016, 0, 0, 0.45 )
+mesh = SubResource( 5 )
+
+[node name="arrowHead_Z" type="MeshInstance" parent="."]
+transform = Transform( 0.083785, 0, 0, 0, -2.50608e-09, -0.0573325, 0, 0.213285, -9.32296e-09, 0, 0, 1.1 )
+mesh = SubResource( 7 )
+
+[node name="arrowRod_X" type="MeshInstance" parent="."]
+transform = Transform( -1.03392e-09, 0, 0.619016, 0, 0.0213008, 0, -0.0236533, 0, -2.7058e-08, 0.45, 0, 0 )
+mesh = SubResource( 10 )
+
+[node name="arrowHead_X" type="MeshInstance" parent="."]
+transform = Transform( -3.66236e-09, 0.213285, -2.50608e-09, 0, -9.32296e-09, -0.0573325, -0.083785, -9.32296e-09, 1.09544e-16, 1.1, 0, 0 )
+mesh = SubResource( 12 )
+
+[node name="arrowRod_Y" type="MeshInstance" parent="."]
+transform = Transform( 0.0236533, 0, 0, 0, -9.31088e-10, -0.619016, 0, 0.0213008, -2.7058e-08, 0, 0.45, 0 )
+mesh = SubResource( 14 )
+
+[node name="arrowHead_Y" type="MeshInstance" parent="."]
+transform = Transform( 0.083785, 0, 0, 0, 0.213285, 0, 0, 0, 0.0573325, 0, 1.1, 0 )
+mesh = SubResource( 16 )

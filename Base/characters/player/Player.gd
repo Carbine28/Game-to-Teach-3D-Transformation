@@ -18,10 +18,10 @@ var velocity = Vector3.ZERO
 var direction = Vector3.ZERO
 var prevDirection = Vector3.ZERO
 var cameraIsActive = false
-var defaultSpawnPoint
+var SpawnPoint
 
 func _ready():
-	defaultSpawnPoint = global_translation
+	SpawnPoint = global_translation
 	prevDirection = _camera.rotation
 
 func _physics_process(delta):

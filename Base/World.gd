@@ -1,12 +1,12 @@
 extends Spatial
 
-var test_level = preload("res://levels/level_test.tscn").instance()
+var test_level = preload("res://levels/level_default.tscn").instance()
 
 func _ready():
-	print_debug("hey")
+	pass
 	# print_debug(get_tree()) # gets the entire scene tree
 	# print_debug(get_tree().get_root()) # root node is main? since root node is main
-	call_deferred("add_child", test_level) # defer code so that when main is finished setting up , 
+	#call_deferred("add_child", test_level) # defer code so that when main is finished setting up , 
 
 func _unhandled_input(_event):
 	if Input.is_action_pressed("quit"):
