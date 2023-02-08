@@ -67,7 +67,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.4613, 0 )
 shape = SubResource( 5 )
 
 [node name="object_Transformable" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.0984, 1.3905, -2.22206 )
+transform = Transform( 3.12765, 0, 0, 0, 1.25409, 0, 0, 0, 3.04029, 15.0984, 1.3905, -2.22206 )
+mode = 3
+speed = 3
 
 [connection signal="camera_toggled" from="." to="Player" method="_on_level_test_camera_toggled"]
 [connection signal="body_entered" from="OutofBoundsFloor" to="." method="_on_OutofBoundsFloor_body_entered"]

@@ -10,7 +10,10 @@ func _ready():
 
 func _unhandled_input(_event):
 	if Input.is_action_pressed("quit"):
-		get_tree().quit()
+		if $Level_GUI/TransformableGUI.visible:
+			$Level_GUI/TransformableGUI.visible = false
+		else:
+			get_tree().quit()
 	if Input.is_action_just_pressed("debug_button"):
 		pass
 	

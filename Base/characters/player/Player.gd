@@ -19,10 +19,12 @@ var direction = Vector3.ZERO
 var prevDirection = Vector3.ZERO
 var cameraIsActive = false
 var SpawnPoint
+var snap_vector
 
 func _ready():
 	SpawnPoint = global_translation
 	prevDirection = _camera.rotation
+	add_to_group("Player")
 
 func _physics_process(delta):
 	# Set player movement to WASD controls, normalize and rotate so direction moved is always the camera front
@@ -43,9 +45,11 @@ func _physics_process(delta):
 	# Interpolate current velocity to desired velocity
 	velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta) 
 	velocity.z = lerp(velocity.z, direction.z * speed, acceleration * delta)
+	snap_vector = get_floor_normal()
 	_jump(delta) # Check for jump inputs
 	# Finally move player
-	velocity = move_and_slide(velocity, Vector3.UP) 
+	
+	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true,1, 0.785398, false)
 
 func _jump(delta):
 	# Coyote time based jumps 
@@ -54,7 +58,9 @@ func _jump(delta):
 	else:
 		velocity.y -= gravity * delta # Sets gravity
 		coyoteTimeCounter -= delta
+		
 	if coyoteTimeCounter > 0.0 and Input.is_action_just_pressed("jump"):
+		snap_vector = Vector3.ZERO
 		velocity.y = jump
 	if (Input.is_action_just_released("jump") and velocity.y > 0.0):
 		coyoteTimeCounter = 0.0
