@@ -33,19 +33,18 @@ func _on_runButton_pressed():
 
 func _on_TransformableGUI_visibility_changed():
 	_resetGUI()
-	if selectedObject:
-		selectedObject._gizmo.visible = not selectedObject._gizmo.visible
 	
 func _resetGUI():
+	# Remove all block in draw area
 	for child in _drawAreaContainer.get_children():
-		child.queue_free() # Remove all block in draw area
-		#emit_signal("drawArea_Cleared")	
-	blockStack.clear()
+		child.queue_free() 
+	blockStack.clear() # Clear Stack
+	
 	if selectedObject:
 		if visible:
-			selectedObject._gizmo.visible = false
-		else:
 			selectedObject._gizmo.visible = true
+		else:
+			selectedObject._gizmo.visible = false
 	
 # Push blocks into stack
 func _on_DrawColumn_child_entered_tree(node):

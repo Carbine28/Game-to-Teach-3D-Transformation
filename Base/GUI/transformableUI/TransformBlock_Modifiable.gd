@@ -1,11 +1,6 @@
 extends ColorRect
 class_name TransformBlockMod
 
-enum BlockType {
-	TRANSLATE,
-	ROTATE,
-	SCALE
-}
 
 onready var _name = $Padding/vDisplayContainer/blockName
 export var id: int

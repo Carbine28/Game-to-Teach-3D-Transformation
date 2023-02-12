@@ -6,7 +6,7 @@ onready var _camera = $Camera
 onready var interaction = $Camera/firstPerson/RayCast
 var picked_Object
 
-export var speed = 10
+export var speed = 20
 export var acceleration = 10
 export var jump = 8
 export var gravity = 18.2
@@ -49,13 +49,13 @@ func _physics_process(delta):
 	_jump(delta) # Check for jump inputs
 	# Finally move player
 	
-	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true,1, 0.785398, false)
-
+	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true,1, 0.785398, true)
 func _jump(delta):
 	# Coyote time based jumps 
+	
 	if is_on_floor():
 		coyoteTimeCounter = coyoteTime
-	else:
+	else:	
 		velocity.y -= gravity * delta # Sets gravity
 		coyoteTimeCounter -= delta
 		
