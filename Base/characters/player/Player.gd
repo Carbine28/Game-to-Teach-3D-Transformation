@@ -6,7 +6,7 @@ onready var _camera = $Camera
 onready var interaction = $Camera/firstPerson/RayCast
 var picked_Object
 
-export var speed = 20
+export var speed = 10
 export var acceleration = 10
 export var jump = 8
 export var gravity = 18.2
@@ -21,10 +21,18 @@ var cameraIsActive = false
 var SpawnPoint
 var snap_vector
 
+## Player States
+enum PlayerFloorState{
+	Floor,
+	Platform
+}
+var floor_state
+
 func _ready():
 	SpawnPoint = global_translation
 	prevDirection = _camera.rotation
 	add_to_group("Player")
+	floor_state = PlayerFloorState.Floor # 
 
 func _physics_process(delta):
 	# Set player movement to WASD controls, normalize and rotate so direction moved is always the camera front
@@ -49,7 +57,14 @@ func _physics_process(delta):
 	_jump(delta) # Check for jump inputs
 	# Finally move player
 	
-	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true,1, 0.785398, true)
+#	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true,1, 0.785398, true)
+#	velocity = move_and_slide(velocity, Vector3.UP)
+	match floor_state:
+		PlayerFloorState.Floor:
+			velocity = move_and_slide(velocity, Vector3.UP)
+		PlayerFloorState.Platform:
+			velocity = move_and_slide_with_snap(velocity, -snap_vector , Vector3.UP, true,1, 0.785398, true)
+
 func _jump(delta):
 	# Coyote time based jumps 
 	

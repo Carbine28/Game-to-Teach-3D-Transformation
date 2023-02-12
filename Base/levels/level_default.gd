@@ -41,7 +41,7 @@ func handle_Object(object):
 	_transformGUI.selectedObject = object
 	_transformGUI.visible = true
 	
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("switch_camera"):
 		emit_signal("camera_toggled")
 		cameraIsActive = !cameraIsActive

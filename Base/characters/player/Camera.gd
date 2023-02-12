@@ -9,7 +9,7 @@ func _ready():
 	#rotation = thirdPersonCamera.rotation
 	pass
 
-func _process(delta):
+func _process(_delta):
 	if firstPersonCamera.current:
 		rotation_degrees.x = look_rotation.x
 		rotation_degrees.y = look_rotation.y
