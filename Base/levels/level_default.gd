@@ -2,6 +2,7 @@ extends Spatial
 
 onready var thirdPersonCamera = $Camera
 onready var player = $Player
+onready var _spawn = $SpawnPoint
 
 signal camera_toggled
 var cameraIsActive = true
@@ -9,6 +10,7 @@ var ray_origin = Vector3()
 var ray_target = Vector3()
 
 var _transformGUI : Control
+export var floorBound = -40
 
 func _ready():
 	thirdPersonCamera.make_current()
@@ -42,6 +44,7 @@ func handle_Object(object):
 	_transformGUI.visible = true
 	
 func _process(_delta):
+	checkForPlayer_OutofBounds()
 	if Input.is_action_just_pressed("switch_camera"):
 		emit_signal("camera_toggled")
 		cameraIsActive = !cameraIsActive
@@ -52,11 +55,13 @@ func _process(_delta):
 			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
 	if cameraIsActive:
 		thirdPersonCamera.translation.x = player.translation.x
-			
+		
+func checkForPlayer_OutofBounds():
+	if player.global_translation.y < floorBound:
+		_spawn._respawnPlayer()
+				
 func _on_OutofBoundsFloor_body_entered(body):
-	# Player 
-	if body.name == "Player":
-		body.global_translation = body.SpawnPoint
-	else: # Objects with gravity
+	
+	if body.name != "Player":
 		body.global_translation = body.SpawnPoint
 	# Objects without gravity

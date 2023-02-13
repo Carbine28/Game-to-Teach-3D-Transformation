@@ -18,22 +18,32 @@ func _ready():
 func _on_clearButton_pressed():
 	for child in _drawAreaContainer.get_children():
 		child.queue_free() # Remove all block in draw area
-		#emit_signal("drawArea_Cleared")	
 	blockStack.clear()
 
 func _on_runButton_pressed():
-	for block in blockStack:
-		match block.block_Type:
+	if blockStack:
+		_execute_Action(blockStack[0])
+		
+func _execute_Action(var block):
+	match block.block_Type:
 			BlockType.TRANSLATE:
 				selectedObject.moveObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
 			BlockType.ROTATE:
-				pass
+				selectedObject.rotateObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
 			BlockType.SCALE:
-				pass
+				selectedObject.scaleObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
+	blockStack.pop_front()
 
 func _on_TransformableGUI_visibility_changed():
 	_resetGUI()
-	
+
+func _on_Transform_Finished():
+	if blockStack:
+		_execute_Action(blockStack[0])
+	else:
+		for child in _drawAreaContainer.get_children():
+			child.queue_free()
+		
 func _resetGUI():
 	# Remove all block in draw area
 	for child in _drawAreaContainer.get_children():

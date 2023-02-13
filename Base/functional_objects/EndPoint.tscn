@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://functional_objects/EndPoint.gd" type="Script" id=1]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[sub_resource type="BoxShape" id=2]
+
+[node name="EndPoint" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="model" type="MeshInstance" parent="."]
+transform = Transform( 0.458774, 0, 0, 0, 0.340787, 0, 0, 0, 0.501323, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="Area" type="Area" parent="model"]
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="model/Area"]
+transform = Transform( 1.09214, 0, 0, 0, 1.21396, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="model/Area" to="." method="_on_Area_body_entered"]
