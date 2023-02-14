@@ -12,8 +12,7 @@ var selectedObject
 var blockStack: Array
 
 func _ready():
-	# Hide GUI upon loading
-	visible = false
+	_resetGUI()
 
 func _on_clearButton_pressed():
 	for child in _drawAreaContainer.get_children():

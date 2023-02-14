@@ -15,7 +15,7 @@ export var floorBound = -40
 func _ready():
 	thirdPersonCamera.make_current()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	_transformGUI = get_node("../Level_GUI/TransformableGUI")
+	_transformGUI = get_node("../../GUI/TransformableGUI")
 	
 func _physics_process(_delta):
 	fire_Object_RayCast()

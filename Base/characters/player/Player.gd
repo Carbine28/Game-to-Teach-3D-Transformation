@@ -33,7 +33,7 @@ func _ready():
 	prevDirection = _camera.rotation
 	add_to_group("Player")
 	floor_state = PlayerFloorState.Floor # 
-
+	
 func _physics_process(delta):
 	# Set player movement to WASD controls, normalize and rotate so direction moved is always the camera front
 	direction = Vector3(
