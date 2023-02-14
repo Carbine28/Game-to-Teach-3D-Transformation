@@ -13,7 +13,8 @@ func _unhandled_input(_event):
 		if $Level_GUI/TransformableGUI.visible:
 			$Level_GUI/TransformableGUI.visible = false
 		else:
-			get_tree().quit()
+			get_tree().quit() # Exit game
+
 	if Input.is_action_just_pressed("debug_button"):
 		pass
 	

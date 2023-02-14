@@ -8,14 +8,17 @@ func _ready():
 	idCount = 0
 
 # Test if block can be dropped
-func can_drop_data(position, data):
+func can_drop_data(_position, data):
 	var can_drop: bool = data is Node and data.is_in_group("DRAGGABLE")
 	return can_drop
 	
-func drop_data(position, data):
+func drop_data(_position, data):
 	var draggable_block: ColorRect = draggable.instance()
 	draggable_block.id = idCount
 	draggable_block.label = data.label
+	print(draggable_block.label)
+	if draggable_block.label == "Scale":
+		draggable_block.enableDefault = true
 	draggable_block.block_Type = data.block_Type
 	draggable_block.dropped_on_target = true
 	dropLocation.add_child(draggable_block)

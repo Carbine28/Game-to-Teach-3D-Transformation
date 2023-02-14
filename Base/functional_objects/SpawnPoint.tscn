@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://functional_objects/SpawnPoint.gd" type="Script" id=1]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[node name="SpawnPoint" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="model" type="MeshInstance" parent="."]
+transform = Transform( 0.458774, 0, 0, 0, 0.340787, 0, 0, 0, 0.501323, 0, 0, 0 )
+mesh = SubResource( 1 )

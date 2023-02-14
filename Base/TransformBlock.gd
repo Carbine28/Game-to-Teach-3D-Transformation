@@ -17,7 +17,7 @@ func _ready() -> void:
 	
 	
 # Called when upon starting drag
-func get_drag_data(position: Vector2):
+func get_drag_data(_position: Vector2):
 	#print("get_drag_data(): Dragging: " , label , " block, ID: ", id)
 	if not dropped_on_target:
 		set_drag_preview( _get_preview_control())
