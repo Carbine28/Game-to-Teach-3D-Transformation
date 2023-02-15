@@ -17,6 +17,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	_transformGUI = get_node("../../GUI/TransformableGUI")
 	
+	
 func _physics_process(_delta):
 	fire_Object_RayCast()
 	
@@ -32,11 +33,13 @@ func fire_Object_RayCast():
 		var intersection = space_state.intersect_ray(ray_origin, ray_target)
 		# Ray collision found
 		if not intersection.empty():
-			if Input.is_action_just_pressed("left_click"):
-				if intersection.collider.is_in_group("TRANSFORMABLE"):
+			if intersection.collider.is_in_group("TRANSFORMABLE"):
+				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+				if Input.is_action_just_pressed("left_click"):
 					# Pass reference to object to gui
 					handle_Object(intersection.collider)
-					
+			else:
+				Input.set_default_cursor_shape(Input.CURSOR_ARROW)			
 
 func handle_Object(object):
 	# Object 
