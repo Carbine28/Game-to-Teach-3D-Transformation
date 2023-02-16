@@ -6,8 +6,7 @@ onready var _codeContainer = $"padding/codeContainer"
 
 var blockStack: Array
 var codeStack: Array
-var currentIndex = 0
-	
+
 func _on_codeButton_pressed():
 	if not visible:
 		_button.text = "Hide Code"
@@ -65,12 +64,13 @@ func clear_code():
 		child.queue_free()
 	codeStack.clear()
 	_button.text = "Show Code"
-	currentIndex = 0
 		
 func _on_codePanel_hide():
 	clear_code()
 
 func _on_TransformableGUI_action_executed():
+	if visible:
+		clear_code()
 	set_code()
 	codeStack.front().add_color_override("font_color", Color(0,1,0,1))
 	show()

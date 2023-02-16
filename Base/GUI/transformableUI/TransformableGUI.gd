@@ -80,7 +80,6 @@ func _on_DrawColumn_child_exiting_tree(node):
 				block.id = block.id -1
 	elif blockStack.size() == 1:
 		blockStack[0].id = 0
-		
 	emit_signal("drawArea_block_deleted")
 		
 func _on_Timer_timeout():
