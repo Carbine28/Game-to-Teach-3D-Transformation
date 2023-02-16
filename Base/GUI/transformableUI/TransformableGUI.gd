@@ -1,5 +1,8 @@
 extends PanelContainer
 
+signal action_executed()
+signal next_action_executed()
+
 enum BlockType {
 	TRANSLATE,
 	ROTATE,
@@ -8,6 +11,8 @@ enum BlockType {
 
 signal drawArea_block_deleted
 onready var _drawAreaContainer = $VBoxContainer/DrawContainer/Padding/DrawColumn
+onready var _codePanel = $VBoxContainer/DrawContainer/Padding/codePanel
+onready var _timer = $Timer
 var selectedObject
 var blockStack: Array
 
@@ -21,6 +26,7 @@ func _on_clearButton_pressed():
 
 func _on_runButton_pressed():
 	if blockStack:
+		emit_signal("action_executed")
 		_execute_Action(blockStack[0])
 		
 func _execute_Action(var block):
@@ -28,9 +34,10 @@ func _execute_Action(var block):
 			BlockType.TRANSLATE:
 				selectedObject.moveObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
 			BlockType.ROTATE:
-				selectedObject.rotateObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
+				selectedObject.rotateObject(block.inputOption, float(block.inputValue))
 			BlockType.SCALE:
 				selectedObject.scaleObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
+	
 	blockStack.pop_front()
 
 func _on_TransformableGUI_visibility_changed():
@@ -39,10 +46,12 @@ func _on_TransformableGUI_visibility_changed():
 func _on_Transform_Finished():
 	if blockStack:
 		_execute_Action(blockStack[0])
+		emit_signal("next_action_executed")
 	else:
 		for child in _drawAreaContainer.get_children():
 			child.queue_free()
-		hide() # Hide menu after executing all blocks
+		# Start 1 second timer here
+		_timer.start()
 		
 func _resetGUI():
 	# Remove all block in draw area
@@ -55,7 +64,7 @@ func _resetGUI():
 			selectedObject._gizmo.visible = true
 		else:
 			selectedObject._gizmo.visible = false
-	
+	_codePanel.hide()
 # Push blocks into stack
 func _on_DrawColumn_child_entered_tree(node):
 	blockStack.push_back(node)
@@ -73,8 +82,8 @@ func _on_DrawColumn_child_exiting_tree(node):
 		blockStack[0].id = 0
 		
 	emit_signal("drawArea_block_deleted")
+		
+func _on_Timer_timeout():
+	_codePanel.hide()
+	hide() # Hide menu after executing all blocks
 	
-		
-		
-		
- 

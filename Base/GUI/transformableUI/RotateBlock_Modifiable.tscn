@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GUI/transformableUI/RotateBlock_Modifiable.gd" type="Script" id=1]
+[ext_resource path="res://GUI/transformableUI/numberInput.tscn" type="PackedScene" id=2]
+
+[node name="RotateBlock" type="ColorRect"]
+anchor_right = 0.187
+anchor_bottom = 0.104
+margin_right = -32.4
+margin_bottom = 0.119995
+rect_min_size = Vector2( 225, 75 )
+size_flags_horizontal = 6
+size_flags_vertical = 0
+color = Color( 0.333333, 0.847059, 0.933333, 1 )
+script = ExtResource( 1 )
+
+[node name="Padding" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -91.0
+margin_top = -30.5
+margin_right = 91.0
+margin_bottom = 30.5
+
+[node name="vDisplayContainer" type="VBoxContainer" parent="Padding"]
+margin_right = 182.0
+margin_bottom = 61.0
+
+[node name="blockName" type="Label" parent="Padding/vDisplayContainer"]
+margin_left = 73.0
+margin_right = 108.0
+margin_bottom = 14.0
+size_flags_horizontal = 6
+size_flags_vertical = 2
+text = "Block"
+align = 1
+
+[node name="hInputContainer" type="HBoxContainer" parent="Padding/vDisplayContainer"]
+margin_top = 37.0
+margin_right = 182.0
+margin_bottom = 61.0
+
+[node name="rotInput" parent="Padding/vDisplayContainer/hInputContainer" instance=ExtResource( 2 )]
+margin_left = 31.0
+margin_right = 89.0
+size_flags_horizontal = 14
+size_flags_vertical = 2
+
+[node name="OptionButton" type="OptionButton" parent="Padding/vDisplayContainer/hInputContainer"]
+margin_left = 93.0
+margin_top = 2.0
+margin_right = 129.0
+margin_bottom = 22.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+text = "Y"
+
+[node name="deleteSelfButton" type="Button" parent="."]
+anchor_right = 0.996
+anchor_bottom = 0.96
+margin_left = 200.0
+margin_right = -0.100006
+margin_bottom = -48.0
+text = "X"
+icon_align = 1
+
+[connection signal="input_Updated" from="Padding/vDisplayContainer/hInputContainer/rotInput" to="." method="_on_rotInput_input_Updated"]
+[connection signal="item_selected" from="Padding/vDisplayContainer/hInputContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="pressed" from="deleteSelfButton" to="." method="_on_deleteSelfButton_pressed"]

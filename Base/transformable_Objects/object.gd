@@ -19,6 +19,7 @@ export var currentRotation = Vector3.ZERO
 # Future Transformation Variables
 var targetPosition = Vector3.ZERO
 var targetRotation = Vector3.ZERO
+var targetAxis
 var targetScale = Vector3.ZERO
 # Object Movement Variables
 export var translationSpeed = 4
@@ -34,7 +35,7 @@ var rotLocked
 
 var lookBasis = Basis()
 var rotation_lerp:= 0.0
-var rotation_speed:= 0.8
+var rotation_speed:= 0.7
 var currentScale;
 
 func _ready():
@@ -77,7 +78,15 @@ func _process(delta):
 						rotation_lerp += delta * rotation_speed
 					elif rotation_lerp > 1:
 						rotation_lerp = 1
-					rotation.y = lerp_angle(rotation.y, targetRotation.y, rotation_lerp )
+					match targetAxis:
+						0:	
+							print(rotation_lerp)
+							rotation.x = lerp_angle(rotation.x, targetRotation.x, rotation_lerp )
+						1:
+							print(rotation_lerp)
+							rotation.y = lerp_angle(rotation.y, targetRotation.y, rotation_lerp )
+						2:
+							rotation.z = lerp_angle(rotation.z, targetRotation.z, rotation_lerp )
 					if rotation_lerp == 1:
 #						transform = transform.orthonormalized()
 #						transform = transform.scaled(currentScale)
@@ -100,9 +109,16 @@ func moveObject(vPosition: Vector3):
 	targetPosition = currentPosition + vPosition
 	objectState = ObjectState.TRANSLATION 
 	
-func rotateObject(vRotation: Vector3):
+func rotateObject(axis: int , value: float):
 	if not rotLocked:
-		targetRotation.y += deg2rad(vRotation.y)
+		targetAxis = axis
+		if targetAxis == 1:
+			targetRotation.y += deg2rad(value)
+		elif targetAxis == 0:
+			targetRotation.x += deg2rad(value)
+		else:
+			targetRotation.z += deg2rad(value)
+			
 		rotation_lerp = 0
 		objectState = ObjectState.ROTATION
 		rotLocked = true
