@@ -15,6 +15,7 @@ albedo_color = Color( 0.862745, 0.568627, 0.152941, 1 )
 extents = Vector3( 0.186569, 0.156937, 0.19428 )
 
 [node name="object_Transformable" type="RigidBody"]
+transform = Transform( 1.82765, 0, 0, 0, 0.906675, 0, 0, 0, 2.01554, 0, 0, 0 )
 mode = 3
 contacts_reported = 5
 contact_monitor = true
@@ -42,6 +43,7 @@ transform = Transform( 0.85, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="gizmo" parent="." instance=ExtResource( 2 )]
+visible = false
 
 [connection signal="body_entered" from="." to="." method="_on_object_Transformable_body_entered"]
 [connection signal="body_entered" from="model/Area" to="." method="_on_Area_body_entered"]

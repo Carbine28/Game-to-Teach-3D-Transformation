@@ -5,7 +5,7 @@ var _player
 func _ready():
 	var model = $model
 	model.visible = false
-	_player = get_node("../Player")
+	_player = get_node("../../Player")
 	_respawnPlayer()
 	
 func _respawnPlayer():

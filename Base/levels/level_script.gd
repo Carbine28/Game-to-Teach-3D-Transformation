@@ -2,7 +2,7 @@ extends Spatial
 
 onready var thirdPersonCamera = $Camera
 onready var player = $Player
-onready var _spawn = $SpawnPoint
+onready var _spawn = $LevelPoints/SpawnPoint
 
 signal camera_toggled
 var cameraIsActive = true
@@ -11,6 +11,7 @@ var ray_target = Vector3()
 
 var _transformGUI : Control
 export var floorBound = -40
+export var max_score: int = 200
 
 func _ready():
 	thirdPersonCamera.make_current()
@@ -68,3 +69,7 @@ func _on_OutofBoundsFloor_body_entered(body):
 	if body.name != "Player":
 		body.global_translation = body.SpawnPoint
 	# Objects without gravity
+
+
+func _on_Timer_timeout():
+	max_score -= 1

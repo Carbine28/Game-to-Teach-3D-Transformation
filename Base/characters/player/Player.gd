@@ -29,6 +29,7 @@ enum PlayerFloorState{
 var floor_state
 
 func _ready():
+	show()
 	SpawnPoint = global_translation
 	prevDirection = _camera.rotation
 	add_to_group("Player")

@@ -1,15 +1,17 @@
 extends Spatial
 
-#var test_level = preload("res://levels/level_default.tscn").instance()
 # Load levels here
+var level_1 = load("res://levels/level_1.tscn")
 var test_level = load("res://levels/level_default.tscn")
+
 # Variables
 var current_level
 var next_level
 var camera_State
 
 func _ready():
-	current_level = get_node("level_default")
+	add_child(level_1.instance())
+	current_level = get_child(0)
 	
 
 func on_restart_pressed():

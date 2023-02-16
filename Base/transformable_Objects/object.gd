@@ -40,7 +40,10 @@ var currentScale;
 func _ready():
 	# Connect Signal To Transformable GUI . Emit a signal per action committed
 	var _gui = get_tree().root.get_child(0).get_node("World/../GUI/TransformableGUI")
-	connect("transform_finished", _gui, "_on_Transform_Finished")
+	var err_code = connect("transform_finished", _gui, "_on_Transform_Finished")
+	if err_code:
+		print("ERROR: ", err_code)
+		
 	_gizmo.set_as_toplevel(true) # Prevent rotation from affecting gizmo
 	_gizmo.visible = false # Hide Axis Gizmo
 	
