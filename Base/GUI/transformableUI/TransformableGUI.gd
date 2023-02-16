@@ -42,6 +42,7 @@ func _on_Transform_Finished():
 	else:
 		for child in _drawAreaContainer.get_children():
 			child.queue_free()
+		hide() # Hide menu after executing all blocks
 		
 func _resetGUI():
 	# Remove all block in draw area

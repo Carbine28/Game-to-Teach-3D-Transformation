@@ -35,15 +35,15 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Padding"]
-margin_right = 336.0
+margin_right = 338.0
 margin_bottom = 183.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="title" type="Panel" parent="Padding/VBoxContainer"]
-margin_left = 93.0
-margin_right = 243.0
+margin_left = 94.0
+margin_right = 244.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 150, 50 )
 size_flags_horizontal = 6
@@ -70,9 +70,9 @@ __meta__ = {
 }
 
 [node name="scorePanel" type="Panel" parent="Padding/VBoxContainer"]
-margin_left = 93.0
+margin_left = 94.0
 margin_top = 54.0
-margin_right = 243.0
+margin_right = 244.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 150, 50 )
 size_flags_horizontal = 6
@@ -93,33 +93,42 @@ align = 1
 valign = 1
 
 [node name="H_ButtonContainer" type="HBoxContainer" parent="Padding/VBoxContainer"]
-margin_left = 18.0
 margin_top = 108.0
-margin_right = 318.0
+margin_right = 338.0
 margin_bottom = 183.0
 rect_min_size = Vector2( 300, 75 )
 size_flags_horizontal = 6
 size_flags_vertical = 2
 
 [node name="main_menu" type="Button" parent="Padding/VBoxContainer/H_ButtonContainer"]
-margin_left = 11.0
 margin_top = 12.0
-margin_right = 136.0
+margin_right = 110.0
 margin_bottom = 62.0
-rect_min_size = Vector2( 125, 50 )
+rect_min_size = Vector2( 110, 50 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "Main Menu"
 
-[node name="next_level" type="Button" parent="Padding/VBoxContainer/H_ButtonContainer"]
-margin_left = 175.0
+[node name="retry" type="Button" parent="Padding/VBoxContainer/H_ButtonContainer"]
+margin_left = 114.0
 margin_top = 12.0
-margin_right = 300.0
+margin_right = 224.0
 margin_bottom = 62.0
-rect_min_size = Vector2( 125, 50 )
+rect_min_size = Vector2( 110, 50 )
+size_flags_horizontal = 14
+size_flags_vertical = 6
+text = "Retry"
+
+[node name="next_level" type="Button" parent="Padding/VBoxContainer/H_ButtonContainer"]
+margin_left = 228.0
+margin_top = 12.0
+margin_right = 338.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 110, 50 )
 size_flags_horizontal = 14
 size_flags_vertical = 6
 text = "Next Level"
 
 [connection signal="pressed" from="Padding/VBoxContainer/H_ButtonContainer/main_menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Padding/VBoxContainer/H_ButtonContainer/retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="Padding/VBoxContainer/H_ButtonContainer/next_level" to="." method="_on_next_level_pressed"]

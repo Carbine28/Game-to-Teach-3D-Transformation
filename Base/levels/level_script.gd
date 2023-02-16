@@ -9,15 +9,21 @@ var cameraIsActive = true
 var ray_origin = Vector3()
 var ray_target = Vector3()
 
+export var level_id:int = 1
 var _transformGUI : Control
-export var floorBound = -40
-export var max_score: int = 200
+export var floorBound = -40 # Y value for player out of bounds detection
+
+# score # - based on time, quicker the better
+var max_score: float = 0 
+# Current unused, compare variables with score. 3 stars is highest score. Could play animation
+export var three_star: float = 10.0
+export var two_star: float = 20.0
+export var one_star: float = 30.0
 
 func _ready():
 	thirdPersonCamera.make_current()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	_transformGUI = get_node("../../GUI/TransformableGUI")
-	
 	
 func _physics_process(_delta):
 	fire_Object_RayCast()
@@ -72,4 +78,4 @@ func _on_OutofBoundsFloor_body_entered(body):
 
 
 func _on_Timer_timeout():
-	max_score -= 1
+	max_score += 0.1
