@@ -47,6 +47,9 @@ margin_left = 31.0
 margin_right = 89.0
 size_flags_horizontal = 14
 size_flags_vertical = 2
+max_length = 3
+placeholder_text = "0"
+isRotation = true
 
 [node name="OptionButton" type="OptionButton" parent="Padding/vDisplayContainer/hInputContainer"]
 margin_left = 93.0

@@ -22,7 +22,7 @@ func set_code():
 	if blockStack:
 		var line = Label.new()
 		line.autowrap = true
-		line.text = " // First create Identify Matrix\nglm::mat4 modelMatrix = glm::mat4(1.0f)\n\n"
+		line.text = " // First create Identity Matrix\nmat4 mMatrix = mat4(1.0f)\n\n"
 		line.text += "// Transformation code goes here"
 		_codeContainer.add_child(line)
 		for block in blockStack:
@@ -31,23 +31,29 @@ func set_code():
 			
 			match block.label:
 				"Translate":
-					var string = "glm::translate(modelMatrix, glm::vec3(%s, %s, %s))"
+					var string = "translate(mMatrix, vec3(%s, %s, %s))"
 					var formatted_string = string % [block.x_Value, block.y_Value, block.z_Value]
 					line.text += formatted_string
 				"Rotate":
 					var string
 					match block.inputOption:
+#						0:
+#							string = "glm::rotate(modelMatrix, glm::radians(%s), glm::vec3(1.0f, 0.0f, 0.0f))"
+#						1:
+#							string = "glm::rotate(modelMatrix, glm::radians(%s), glm::vec3(0.0f, 1.0f, 0.0f))"
+#						2:
+#							string = "glm::rotate(modelMatrix, glm::radians(%s), glm::vec3(0.0f, 0.0f, 1.0f))"
 						0:
-							string = "glm::rotate(modelMatrix, glm::radians(%s), glm::vec3(1.0f, 0.0f, 0.0f))"
+							string = "rotate(mMatrix, radians(%s), vec3(1.0f, 0.0f, 0.0f))"
 						1:
-							string = "glm::rotate(modelMatrix, glm::radians(%s), glm::vec3(0.0f, 1.0f, 0.0f))"
+							string = "rotate(mMatrix, radians(%s), vec3(0.0f, 1.0f, 0.0f))"
 						2:
-							string = "glm::rotate(modelMatrix, glm::radians(%s), glm::vec3(0.0f, 0.0f, 1.0f))"
+							string = "rotate(mMatrix, radians(%s), vec3(0.0f, 0.0f, 1.0f))"
 					var formatted_string = string % [block.inputValue]
 					line.text += formatted_string
 					print(line.name)
 				"Scale":
-					var string = "glm::scale(modelMatrix, glm::vec3(%s, %s, %s))"
+					var string = "scale(mMatrix, glm::vec3(%s, %s, %s))"
 					var formatted_string = string % [block.x_Value, block.y_Value, block.z_Value]
 					line.text += formatted_string
 			codeStack.push_back(line)

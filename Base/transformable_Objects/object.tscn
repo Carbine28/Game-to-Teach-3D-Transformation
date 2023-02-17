@@ -45,6 +45,5 @@ shape = SubResource( 4 )
 [node name="gizmo" parent="." instance=ExtResource( 2 )]
 visible = false
 
-[connection signal="body_entered" from="." to="." method="_on_object_Transformable_body_entered"]
 [connection signal="body_entered" from="model/Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="model/Area" to="." method="_on_Area_body_exited"]

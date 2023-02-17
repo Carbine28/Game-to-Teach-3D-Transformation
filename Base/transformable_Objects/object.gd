@@ -44,7 +44,7 @@ func _ready():
 	var err_code = connect("transform_finished", _gui, "_on_Transform_Finished")
 	if err_code:
 		print("ERROR: ", err_code)
-		
+	
 	_gizmo.set_as_toplevel(true) # Prevent rotation from affecting gizmo
 	_gizmo.visible = false # Hide Axis Gizmo
 	
@@ -80,17 +80,26 @@ func _process(delta):
 						rotation_lerp = 1
 					match targetAxis:
 						0:	
-							print(rotation_lerp)
-							rotation.x = lerp_angle(rotation.x, targetRotation.x, rotation_lerp )
+							print(rotation.x)
+							if rotation.x == targetRotation.x:
+								rotation_lerp = 1
+							else:
+								rotation.x = lerp_angle(rotation.x, targetRotation.x, rotation_lerp )
 						1:
-							print(rotation_lerp)
-							rotation.y = lerp_angle(rotation.y, targetRotation.y, rotation_lerp )
+							if rotation.y == targetRotation.y:
+								rotation_lerp = 1
+							else:
+								rotation.y = lerp_angle(rotation.y, targetRotation.y, rotation_lerp )
 						2:
-							rotation.z = lerp_angle(rotation.z, targetRotation.z, rotation_lerp )
+							if rotation.z == targetRotation.z:
+								rotation_lerp = 1
+							else:
+								rotation.z = lerp_angle(rotation.z, targetRotation.z, rotation_lerp )
 					if rotation_lerp == 1:
+						rotation = targetRotation
 #						transform = transform.orthonormalized()
 #						transform = transform.scaled(currentScale)
-						print(currentScale)
+#						print(currentScale)
 						objectState = ObjectState.PASSIVE
 						rotLocked = false
 						emit_signal("transform_finished")
@@ -111,6 +120,8 @@ func moveObject(vPosition: Vector3):
 	
 func rotateObject(axis: int , value: float):
 	if not rotLocked:
+		rotLocked = true
+		
 		targetAxis = axis
 		if targetAxis == 1:
 			targetRotation.y += deg2rad(value)
@@ -121,7 +132,7 @@ func rotateObject(axis: int , value: float):
 			
 		rotation_lerp = 0
 		objectState = ObjectState.ROTATION
-		rotLocked = true
+		
 
 func scaleObject(vScale: Vector3):
 	targetScale = vScale
