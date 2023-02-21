@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://functional_objects/Button.gd" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.576465, 0.134025, 0.581321 )
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.988235, 0.988235, 0.988235, 1 )
+
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
+size = Vector3( 1, 0.5, 1 )
+
+[sub_resource type="CylinderShape" id=8]
+height = 0.290897
+radius = 0.404806
+
+[sub_resource type="CylinderMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.858824, 0.313726, 0.313726, 1 )
+
+[sub_resource type="CylinderShape" id=6]
+height = 0.148812
+radius = 0.355143
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("button:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.193975, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("buttonCol:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 6.93155e-11, 0.281149, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "buttonHeld"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("button:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.000923153, 0.26354, 0.00216141 ), Vector3( -0.000923153, 0.135752, 0.00216141 ), Vector3( -0.000923153, 0.0414999, 0.00216141 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("buttonCol:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 6.93155e-11, 0.281149, 0 ), Vector3( 6.93155e-11, 0.153361, 0 ), Vector3( 6.93155e-11, 0.0591093, 0 ) ]
+}
+
+[node name="Button" type="StaticBody"]
+transform = Transform( 3.359, 0, 0, 0, 2.875, 0, 0, 0, 3.17, 0, 0, 0 )
+input_ray_pickable = false
+script = ExtResource( 1 )
+
+[node name="baseCol" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 5 )
+
+[node name="base" type="MeshInstance" parent="."]
+transform = Transform( 1.1, 0, 0, 0, 0.595, 0, 0, 0, 1.1, 0, 0, 0 )
+mesh = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="buttonCol" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999995, 6.93155e-11, 0.281149, 0 )
+shape = SubResource( 8 )
+
+[node name="button" type="MeshInstance" parent="."]
+transform = Transform( 0.396107, 0, 0, 0, 0.120078, 0, 0, 0, 0.373998, 0, 0.193975, 0 )
+mesh = SubResource( 3 )
+skeleton = NodePath("")
+material/0 = SubResource( 4 )
+
+[node name="Area" type="Area" parent="button"]
+transform = Transform( 2.52457, 0, 0, 0, 15.9286, 0, 0, 0, 2.6738, 0, 1.61972, 0 )
+input_ray_pickable = false
+monitorable = false
+
+[node name="areaCol" type="CollisionShape" parent="button/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0367625, 0 )
+shape = SubResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 7 )
+anims/buttonHeld = SubResource( 9 )
+
+[connection signal="body_entered" from="button/Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="button/Area" to="." method="_on_Area_body_exited"]

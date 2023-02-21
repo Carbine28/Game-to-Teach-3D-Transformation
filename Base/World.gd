@@ -11,13 +11,15 @@ var restarted_level
 var next_level
 var max_levels: int
 
+var Debug_level: int = 0
+
 func _ready():
 	levels.push_back(level_0)
 	levels.push_back(level_1)
 	levels.push_back(level_2)
 	max_levels = levels.size() - 1
 	#add_child(level_1.instance())
-	add_child(levels[1].instance())
+	add_child(levels[Debug_level].instance())
 	current_level = get_child(0)
 
 func on_next_pressed():
