@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://transformable_Objects/physicObject.gd" type="Script" id=1]
+[ext_resource path="res://transformable_Objects/gizmo.tscn" type="PackedScene" id=2]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.543827, 0.354957, 0.463959 )
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.168627, 0.741176, 0.203922, 1 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.186569, 0.156937, 0.19428 )
+
+[node name="object_Transformable" type="KinematicBody"]
+script = ExtResource( 1 )
+can_translate = true
+can_rotate = true
+can_scale = true
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 5.11757, 0, 0, 0, 1.33901, 0, 0, 0, 4.41381, 0, 0.00526782, 0 )
+shape = SubResource( 3 )
+
+[node name="model" type="Spatial" parent="."]
+transform = Transform( 4.4732, 0, 0, 0, 0.949638, 0, 0, 0, 3.35079, 0, -0.000862982, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="model"]
+transform = Transform( 0.56154, 0, 0, 0, 0.4539, 0, 0, 0, 0.57091, 0, 0, 0 )
+mesh = SubResource( 1 )
+skeleton = NodePath("")
+material/0 = SubResource( 2 )
+
+[node name="Area" type="Area" parent="model"]
+transform = Transform( 2.46, 0, 0, 0, 0.140893, 0, 0, 0, 2.15, 0, 0.520031, 0 )
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="model/Area"]
+transform = Transform( 0.85, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="gizmo" parent="model" instance=ExtResource( 2 )]
+transform = Transform( 0.977096, 0, 0, 0, 2.60323, 0, 0, 0, 1.01243, 0, 0, 0 )
+
+[connection signal="body_entered" from="model/Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="model/Area" to="." method="_on_Area_body_exited"]

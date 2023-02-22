@@ -90,7 +90,7 @@ margin_right = 392.0
 margin_bottom = 90.0
 alignment = 1
 
-[node name="TransformBlock" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
+[node name="TranslateSource" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
 margin_left = 4.0
 margin_top = 15.0
 margin_right = 129.0
@@ -99,7 +99,7 @@ rect_min_size = Vector2( 125, 60 )
 size_flags_vertical = 6
 label = "Translate"
 
-[node name="TransformBlock2" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
+[node name="RotateSource" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
 margin_left = 133.0
 margin_top = 15.0
 margin_right = 258.0
@@ -109,7 +109,7 @@ size_flags_vertical = 6
 label = "Rotate"
 block_Type = 1
 
-[node name="TransformBlock3" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
+[node name="ScaleSource" parent="VBoxContainer/SourceContainer/Padding/SourceRows" instance=ExtResource( 2 )]
 margin_left = 262.0
 margin_top = 15.0
 margin_right = 387.0

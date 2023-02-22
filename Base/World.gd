@@ -11,7 +11,7 @@ var restarted_level
 var next_level
 var max_levels: int
 
-var Debug_level: int = 0
+var Debug_level: int = 1
 
 func _ready():
 	levels.push_back(level_0)

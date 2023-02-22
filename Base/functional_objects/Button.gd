@@ -9,11 +9,12 @@ func _ready():
 	pass
 
 func _on_Area_body_entered(body):
-	if body.name == "Player":
+	
+	if body.is_in_group("Player") or body.is_in_group("TRANSFORMABLE"):
 		_animPlayer.play("buttonHeld")
 		scene_node.open()
 
 func _on_Area_body_exited(body):
-	if body.name == "Player":
+	if body.is_in_group("Player") or body.is_in_group("TRANSFORMABLE"):
 		_animPlayer.play_backwards("buttonHeld")
 		scene_node.close()
