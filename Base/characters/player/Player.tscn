@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://characters/player/Camera.gd" type="Script" id=1]
+[ext_resource path="res://characters/player/hands.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.gd" type="Script" id=2]
+[ext_resource path="res://characters/player/HandBox.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleMesh" id=1]
 
@@ -9,6 +10,10 @@
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0.298039, 0.290196, 0.290196, 1 )
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="CubeMesh" id=6]
 
 [sub_resource type="CapsuleShape" id=2]
 height = 0.002
@@ -19,7 +24,7 @@ script = ExtResource( 2 )
 [node name="Body" type="Spatial" parent="."]
 
 [node name="body" type="MeshInstance" parent="Body"]
-transform = Transform( 0.886903, 0, 0, 0, -4.73151e-08, -1.08244, 0, 0.875932, -3.82882e-08, 0.00233388, 1.58099, 0.011692 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00233388, 1.58099, 0.011692 )
 mesh = SubResource( 1 )
 
 [node name="head" type="MeshInstance" parent="Body"]
@@ -27,13 +32,30 @@ transform = Transform( 0.386323, 0, 0, 0, 0.222089, 0, 0, 0, 0.193294, 0, 2.478,
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
-[node name="Camera" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -1 )
+[node name="hands" type="Spatial" parent="Body"]
 script = ExtResource( 1 )
+box = ExtResource( 3 )
 
-[node name="firstPerson" type="Camera" parent="Camera"]
-fov = 90.0
+[node name="Area" type="Area" parent="Body/hands"]
+transform = Transform( 0.605172, 0, 0, 0, 1.16444, 0, 0, 0, 0.512235, 0, 1.47346, -1.60719 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/hands/Area"]
+visible = false
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Body/hands/Area/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 6 )
+
+[node name="HandContainer" type="Spatial" parent="Body/hands"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.36419, -1.88705 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -7.42236e-08, -1.69804, 0, 1, -4.37114e-08, 0, 1.576, 0 )
 shape = SubResource( 2 )
+
+[connection signal="body_entered" from="Body/hands/Area" to="Body/hands" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Body/hands/Area" to="Body/hands" method="_on_Area_body_exited"]

@@ -76,7 +76,6 @@ func _on_OutofBoundsFloor_body_entered(body):
 	if body.name != "Player":
 		body.global_translation = body.SpawnPoint
 	# Objects without gravity
-
-
-func _on_Timer_timeout():
+	
+func _on_LevelTimer_timeout():
 	max_score += 0.1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://GUI/transformableUI/TransformableGUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/level_debug.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GUI/pause_menu/PauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GUI_Controller.gd" type="Script" id=5]
 [ext_resource path="res://GUI/level_complete/LevelCompleteUI.tscn" type="PackedScene" id=6]
@@ -12,7 +13,7 @@
 [node name="World" type="Spatial" parent="."]
 script = ExtResource( 1 )
 debug = true
-debug_level = ExtResource( 8 )
+debug_level = ExtResource( 3 )
 level_Scenes = [ ExtResource( 8 ), ExtResource( 8 ) ]
 
 [node name="GUI" type="Control" parent="."]

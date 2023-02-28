@@ -83,7 +83,7 @@ func configSourceBlocks():
 	else:
 		_scaleSource.hide()
 	# Pass vectors here into draw container node
-	_drawContainer.set_block_limits(selectedObject.translate_limit, selectedObject.rotate_limit)	
+	_drawContainer.set_block_limits(selectedObject.translate_axis_limit, selectedObject.rotate_axis_limit)	
 			
 # Push blocks into stack
 func _on_DrawColumn_child_entered_tree(node):

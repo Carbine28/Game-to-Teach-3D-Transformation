@@ -6,6 +6,7 @@ onready var _transformGUI = $"../TransformableGUI"
 onready var _pauseMenu = $"../PauseMenu"
 onready var _levelCompleteUI = $"../LevelCompleteUI"
 
+# warning-ignore:unused_argument
 func _unhandled_input(event):
 
 	if Input.is_action_just_pressed("escape"):

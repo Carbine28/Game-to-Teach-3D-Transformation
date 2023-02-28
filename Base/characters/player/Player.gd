@@ -25,12 +25,12 @@ var picked_Object # Unused
 var floor_state
 # Onready Variables
 onready var _body = $Body
-onready var _camera = $Camera
+
 
 func _ready():
 	show()
 	SpawnPoint = global_translation
-	prevDirection = _camera.rotation
+#	prevDirection = _camera.rotation
 	add_to_group("Player")
 	floor_state = PlayerFloorState.Floor # 
 	
@@ -41,16 +41,12 @@ func _physics_process(delta):
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), 
 		0,
 		Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
-	).normalized().rotated(Vector3.UP, _camera.rotation.y)
+	).normalized()
+#	.rotated(Vector3.UP, _camera.rotation.y)
 	
-	# Sync Camera when switching
-	if _body.visible:
-		if direction != Vector3.ZERO:
+	if direction != Vector3.ZERO:
 			_body.look_at(translation + direction, Vector3.UP)
-			prevDirection = _body.rotation
-	else:
-		_body.rotation.y = _camera.rotation.y
-		prevDirection = _body.rotation
+			
 	# Interpolate current velocity to desired velocity
 	velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta) 
 	velocity.z = lerp(velocity.z, direction.z * speed, acceleration * delta)
@@ -69,7 +65,6 @@ func _physics_process(delta):
 
 func _jump(delta):
 	# Coyote time based jumps 
-	
 	if is_on_floor():
 		coyoteTimeCounter = coyoteTime
 	else:	
@@ -82,16 +77,4 @@ func _jump(delta):
 	if (Input.is_action_just_released("jump") and velocity.y > 0.0):
 		coyoteTimeCounter = 0.0
 
-
-func _on_level_test_camera_toggled():
-	cameraIsActive = !cameraIsActive
-	_camera.get_node("firstPerson").set_process(cameraIsActive)
-	if cameraIsActive:
-		_camera.get_node("firstPerson").make_current()
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		_body.visible = false
-		_camera.look_rotation.y = rad2deg(prevDirection.y)
-		_camera.look_rotation.x = rad2deg(prevDirection.x)
-	else:
-		_body.visible = true
 		

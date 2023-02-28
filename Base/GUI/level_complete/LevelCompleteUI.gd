@@ -9,7 +9,9 @@ var max_level
 var current_level_id
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("restart_pressed", _World, "on_restart_pressed")
+# warning-ignore:return_value_discarded
 	connect("next_pressed", _World, "on_next_pressed")
 	max_level = _World.level_Scenes.size()
 	
