@@ -1,32 +1,32 @@
 extends KinematicBody
 
-onready var _body = $Body
-onready var _camera = $Camera
-# Used for first person picking? But do we really need it
-onready var interaction = $Camera/firstPerson/RayCast
-var picked_Object
+# Signals
 
+# Enums
+## Player States
+enum PlayerFloorState{Floor, Platform}
+# Constants
+
+# Exported Variables
 export var speed = 10
 export var acceleration = 10
 export var jump = 8
 export var gravity = 18.2
-
 export var coyoteTime = 0.2
+# Regular Variables
 var coyoteTimeCounter = 0.0
-
 var velocity = Vector3.ZERO
 var direction = Vector3.ZERO
 var prevDirection = Vector3.ZERO
-var cameraIsActive = false
+var cameraIsActive = false # first person camera
 var SpawnPoint
 var snap_vector
-
-## Player States
-enum PlayerFloorState{
-	Floor,
-	Platform
-}
+var picked_Object # Unused
 var floor_state
+# Onready Variables
+onready var _body = $Body
+onready var _camera = $Camera
+onready var interaction = $Camera/firstPerson/RayCast # Is this used?
 
 func _ready():
 	show()
@@ -34,6 +34,7 @@ func _ready():
 	prevDirection = _camera.rotation
 	add_to_group("Player")
 	floor_state = PlayerFloorState.Floor # 
+	
 	
 func _physics_process(delta):
 	# Set player movement to WASD controls, normalize and rotate so direction moved is always the camera front
@@ -66,6 +67,7 @@ func _physics_process(delta):
 		PlayerFloorState.Platform:
 			velocity = move_and_slide_with_snap(velocity, -snap_vector , Vector3.UP, true,1, 0.785398, true)
 
+
 func _jump(delta):
 	# Coyote time based jumps 
 	
@@ -80,6 +82,7 @@ func _jump(delta):
 		velocity.y = jump
 	if (Input.is_action_just_released("jump") and velocity.y > 0.0):
 		coyoteTimeCounter = 0.0
+
 
 func _on_level_test_camera_toggled():
 	cameraIsActive = !cameraIsActive

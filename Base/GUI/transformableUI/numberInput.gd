@@ -8,17 +8,13 @@ var input = ""
 
 var defaultInput = "1"
 var enableDefaultInput: bool
-export var isRotation = false
 var hasDecimal = false
 
 func _ready():
 	 # Blocks invalid characters except numbers and decimal point
 #	LineEditRegEx.compile("^[0-9.]*$")
 	#^(?:[0-9]|[\.]|[\-])*$\
-	if isRotation:
-		LineEditRegEx.compile("^-?[0-9]*$")
-	else:
-		LineEditRegEx.compile("^-?[0-9.]*$")
+	LineEditRegEx.compile("^-?[0-9.]*$")
 
 func _on_numberInput_text_changed(new_text):
 	if LineEditRegEx.search(new_text):

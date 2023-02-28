@@ -1,10 +1,9 @@
 extends ColorRect
 
 onready var _option = $Padding/vDisplayContainer/hInputContainer/OptionButton
-onready var _input = $Padding/vDisplayContainer/hInputContainer/rotInput
-
-
+onready var _input = $Padding/vDisplayContainer/hInputContainer/scaleInput
 onready var _name = $Padding/vDisplayContainer/blockName
+
 export var id: int
 export var label:String
 var block_Type

@@ -5,17 +5,17 @@ signal restart_pressed
 onready var _World = $"../../World"
 onready var _score = $Padding/VBoxContainer/scorePanel/score
 onready var _nextButton = $Padding/VBoxContainer/H_ButtonContainer/next_level
-var max_level_id
+var max_level
 var current_level_id
 
 func _ready():
 	connect("restart_pressed", _World, "on_restart_pressed")
 	connect("next_pressed", _World, "on_next_pressed")
-	max_level_id = _World.max_levels
+	max_level = _World.level_Scenes.size()
 	
 func _on_level_complete():
 	current_level_id = _World.current_level.level_id
-	if current_level_id >= max_level_id:
+	if current_level_id >= max_level:
 		_nextButton.hide()
 	else:
 		_nextButton.show()

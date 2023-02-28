@@ -54,7 +54,7 @@ func set_code():
 					print(line.name)
 				"Scale":
 					var string = "scale(mMatrix, glm::vec3(%s, %s, %s))"
-					var formatted_string = string % [block.x_Value, block.y_Value, block.z_Value]
+					var formatted_string = string % [block.inputValue, block.inputValue, block.inputValue]
 					line.text += formatted_string
 			codeStack.push_back(line)
 			print(codeStack)

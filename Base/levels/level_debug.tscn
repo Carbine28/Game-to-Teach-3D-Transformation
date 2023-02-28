@@ -5,7 +5,7 @@
 [ext_resource path="res://functional_objects/Button.tscn" type="PackedScene" id=3]
 [ext_resource path="res://functional_objects/SpawnPoint.tscn" type="PackedScene" id=4]
 [ext_resource path="res://functional_objects/door.tscn" type="PackedScene" id=5]
-[ext_resource path="res://transformable_Objects/physicObject.tscn" type="PackedScene" id=6]
+[ext_resource path="res://transformable_Objects/physic_object.tscn" type="PackedScene" id=6]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 14.5, 1, 22.9 )

@@ -19,6 +19,7 @@ var max_score: float = 0
 export var three_star: float = 10.0
 export var two_star: float = 20.0
 export var one_star: float = 30.0
+export var cameraXOffset: float = 5.0
 
 func _ready():
 	thirdPersonCamera.make_current()
@@ -64,7 +65,7 @@ func _process(_delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
 	if cameraIsActive:
-		thirdPersonCamera.translation.x = player.translation.x
+		thirdPersonCamera.translation.x = player.translation.x + cameraXOffset
 		
 func checkForPlayer_OutofBounds():
 	if player.global_translation.y < floorBound:

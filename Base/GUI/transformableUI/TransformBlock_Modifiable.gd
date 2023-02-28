@@ -18,19 +18,21 @@ var z_Value
 var dropped_on_target: bool = false
 
 func _ready() -> void:
+	
 	add_to_group("DRAGGABLE")
 	_name.text = label
-	if enableDefault:
-		_input_x.text = "1.0"
-		_input_y.text = "1.0"
-		_input_z.text = "1.0"
-		x_Value = 1
-		y_Value = 1
-		z_Value = 1
-	else:
-		x_Value = 0.0
-		y_Value = 0.0
-		z_Value = 0.0
+	x_Value = 0.0
+	y_Value = 0.0
+	z_Value = 0.0
+	
+func hide_input_x():
+	_input_x.hide()
+	
+func hide_input_y():
+	_input_y.hide()
+	
+func hide_input_z():
+	_input_z.hide()
 	
 # Deletes transform block from drawing area
 func _on_deleteSelfButton_pressed():

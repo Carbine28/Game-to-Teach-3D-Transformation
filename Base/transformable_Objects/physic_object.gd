@@ -1,20 +1,19 @@
 extends KinematicBody
 
+# Signals
 signal transform_finished
-
-enum ObjectState{
-	TRANSLATION,
-	ROTATION,
-	SCALE,
-	PASSIVE
-}
-
+# Enums
+enum ObjectState{ TRANSLATION, ROTATION, SCALE, PASSIVE}
+# Exported
 export(bool) var can_translate
 export(bool) var can_rotate
 export(bool) var can_scale 
-
+export(bool) var has_limit = false
+export var transformLimit: int = 5
+export var translationSpeed = 4
+# Regular Variables
+# Onready Variables
 onready var _gizmo = $model/gizmo
-# Default Position Variables
 var SpawnPoint : Vector3
 var defaultRotation: Vector3
 # Position Variables
@@ -26,7 +25,6 @@ var targetRotation = Vector3.ZERO
 var targetAxis
 var targetScale = Vector3.ZERO
 # Object Movement Variables
-export var translationSpeed = 4
 var _anglularSpeed: float = TAU
 var angular_accel = 6.8
 
@@ -64,6 +62,7 @@ func _ready():
 	add_to_group("TRANSFORMABLE")
 #	mode = MODE_KINEMATIC
 	objectState = ObjectState.PASSIVE
+
 
 func _process(delta):
 		currentPosition = global_translation
@@ -122,12 +121,11 @@ func _process(delta):
 				velocity.y -= objectGravity * delta
 				velocity = move_and_collide(velocity)
 				
-	
-
-							
+									
 func moveObject(vPosition: Vector3):
 	targetPosition = currentPosition + vPosition
 	objectState = ObjectState.TRANSLATION 
+	
 	
 func rotateObject(axis: int , value: float):
 	if not rotLocked:
@@ -148,11 +146,13 @@ func rotateObject(axis: int , value: float):
 func scaleObject(vScale: Vector3):
 	targetScale = vScale
 	objectState = ObjectState.SCALE
+
 ## Area on Top of object which signals the player to move differently depending on floor/platform
 func _on_Area_body_entered(body):
 	if body.name == "Player":
 		body.floor_state = body.PlayerFloorState.Platform # Change player movement to platform type
 		#print(body.floor_state)
+		
 func _on_Area_body_exited(body):
 	if body.name == "Player":
 		body.floor_state = body.PlayerFloorState.Floor # Change player movement to floor type.

@@ -1,18 +1,25 @@
 extends RigidBody
-
+# Signals
 signal transform_finished
-
-enum ObjectState{
-	TRANSLATION,
-	ROTATION,
-	SCALE,
-	PASSIVE
-}
+# Enums
+enum ObjectState{ TRANSLATION, ROTATION, SCALE, PASSIVE}
+# Exports
 export(bool) var can_translate
 export(bool) var can_rotate
-export(bool) var can_scale 
-
-onready var _gizmo = $gizmo
+export(bool) var can_scale
+export(bool) var has_limit = false
+export var transform_limit: int = 5
+export(Vector3) var translate_limit = Vector3(0, 0, 0)
+export(Vector3) var rotate_limit = Vector3(0, 0, 0)
+export var translation_speed = 4
+# Regular Variables
+var objectState
+var direction
+var rotLocked
+var lookBasis = Basis() # Not used
+var rotation_lerp:= 0.0
+var rotation_speed:= 0.7
+var currentScale;
 # Default Position Variables
 var SpawnPoint : Vector3
 var defaultRotation: Vector3
@@ -25,21 +32,14 @@ var targetRotation = Vector3.ZERO
 var targetAxis
 var targetScale = Vector3.ZERO
 # Object Movement Variables
-export var translationSpeed = 4
 var _anglularSpeed: float = TAU
 var angular_accel = 5
 var angle_diff_x
 var angle_diff_y
 var angle_diff_z
+# Onready variables
+onready var _gizmo = $gizmo
 
-var objectState
-var direction
-var rotLocked
-
-var lookBasis = Basis()
-var rotation_lerp:= 0.0
-var rotation_speed:= 0.7
-var currentScale;
 
 func _ready():
 	# Connect Signal To Transformable GUI . Emit a signal per action committed
@@ -64,6 +64,7 @@ func _ready():
 	mode = MODE_KINEMATIC
 	objectState = ObjectState.PASSIVE
 
+
 func _process(delta):
 		currentPosition = global_translation
 		match objectState:
@@ -71,7 +72,7 @@ func _process(delta):
 				if (currentPosition - targetPosition).length() > 0.1:
 					direction = (targetPosition - currentPosition).normalized()
 #					global_translation += (direction)  * delta * translationSpeed
-					translation += (direction)  * delta * translationSpeed
+					translation += (direction)  * delta * translation_speed
 					_gizmo.global_translation = translation
 				else:
 					objectState = ObjectState.PASSIVE
@@ -116,10 +117,12 @@ func _process(delta):
 					emit_signal("transform_finished")
 			ObjectState.PASSIVE:
 				pass
+		
 							
 func moveObject(vPosition: Vector3):
 	targetPosition = currentPosition + vPosition
 	objectState = ObjectState.TRANSLATION 
+
 	
 func rotateObject(axis: int , value: float):
 	if not rotLocked:
@@ -140,11 +143,15 @@ func rotateObject(axis: int , value: float):
 func scaleObject(vScale: Vector3):
 	targetScale = vScale
 	objectState = ObjectState.SCALE
+
+
 ## Area on Top of object which signals the player to move differently depending on floor/platform
 func _on_Area_body_entered(body):
 	if body.name == "Player":
 		body.floor_state = body.PlayerFloorState.Platform # Change player movement to platform type
 		#print(body.floor_state)
+		
+		
 func _on_Area_body_exited(body):
 	if body.name == "Player":
 		body.floor_state = body.PlayerFloorState.Floor # Change player movement to floor type.
