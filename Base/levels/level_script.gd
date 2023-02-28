@@ -56,16 +56,16 @@ func handle_Object(object):
 	
 func _process(_delta):
 	checkForPlayer_OutofBounds()
-	if Input.is_action_just_pressed("switch_camera"):
-		emit_signal("camera_toggled")
-		cameraIsActive = !cameraIsActive
-		thirdPersonCamera.set_process(cameraIsActive) # Enable/Disable TP Camera
-		if cameraIsActive:
-			thirdPersonCamera.make_current()
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
-	if cameraIsActive:
-		thirdPersonCamera.translation.x = player.translation.x + cameraXOffset
+#	if Input.is_action_just_pressed("switch_camera"):
+#		emit_signal("camera_toggled")
+#		cameraIsActive = !cameraIsActive
+#		thirdPersonCamera.set_process(cameraIsActive) # Enable/Disable TP Camera
+#		if cameraIsActive:
+#			thirdPersonCamera.make_current()
+#			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
+#	if cameraIsActive:
+	thirdPersonCamera.translation.x = player.translation.x # + cameraXOffset
 		
 func checkForPlayer_OutofBounds():
 	if player.global_translation.y < floorBound:

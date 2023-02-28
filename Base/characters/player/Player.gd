@@ -26,7 +26,6 @@ var floor_state
 # Onready Variables
 onready var _body = $Body
 onready var _camera = $Camera
-onready var interaction = $Camera/firstPerson/RayCast # Is this used?
 
 func _ready():
 	show()
