@@ -1,21 +1,45 @@
 extends Spatial
 
-var test_level = preload("res://levels/level_default.tscn").instance()
 
+#var level_0 = load("res://levels/level_default.tscn") # Default TEST level. Unused
+# Exported Variables
+export var debug: bool
+export(PackedScene) var debug_level 
+export(Array, PackedScene) var level_Scenes
+
+# Variables
+var current_level
+var restarted_level
+var next_level
+var highest_level: int
+
+# Built in virtual methods
 func _ready():
-	pass
-	# print_debug(get_tree()) # gets the entire scene tree
-	# print_debug(get_tree().get_root()) # root node is main? since root node is main
-	#call_deferred("add_child", test_level) # defer code so that when main is finished setting up , 
-
-func _unhandled_input(_event):
-	if Input.is_action_pressed("quit"):
-		if $Level_GUI/TransformableGUI.visible:
-			$Level_GUI/TransformableGUI.visible = false
-		else:
-			get_tree().quit() # Exit game
-
-	if Input.is_action_just_pressed("debug_button"):
-		pass
 	
-			
+	if debug:
+		add_child(debug_level.instance()) 
+	else:
+		# load first level atm. Will add menu as first scene to load
+		add_child(level_Scenes[0].instance())
+		
+	current_level = get_child(0)
+
+
+#func on_next_pressed():
+#	remove_child(current_level)
+#	next_level = levels[current_level.level_id + 1].instance()
+#	current_level.queue_free()
+#	add_child(next_level)
+#	current_level = get_child(0)
+	
+	
+func on_restart_pressed():
+	remove_child(current_level) # Remove current level
+	restarted_level = level_Scenes[current_level.level_id].instance() # instance the restarted level
+	# free from memory
+	current_level.queue_free()
+
+	add_child(restarted_level)
+	# Set Current level to be the new level inserted
+	current_level = get_child(0)
+	

@@ -2,20 +2,29 @@ extends Spatial
 
 onready var thirdPersonCamera = $Camera
 onready var player = $Player
-onready var _spawn = $SpawnPoint
+onready var _spawn = $LevelPoints/SpawnPoint
 
 signal camera_toggled
 var cameraIsActive = true
 var ray_origin = Vector3()
 var ray_target = Vector3()
 
+export var level_id:int = 1
 var _transformGUI : Control
-export var floorBound = -40
+export var floorBound = -40 # Y value for player out of bounds detection
+
+# score # - based on time, quicker the better
+var max_score: float = 0 
+# Current unused, compare variables with score. 3 stars is highest score. Could play animation
+export var three_star: float = 10.0
+export var two_star: float = 20.0
+export var one_star: float = 30.0
+export var cameraXOffset: float = 5.0
 
 func _ready():
 	thirdPersonCamera.make_current()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	_transformGUI = get_node("../Level_GUI/TransformableGUI")
+	_transformGUI = get_node("../../GUI/TransformableGUI")
 	
 func _physics_process(_delta):
 	fire_Object_RayCast()
@@ -32,11 +41,13 @@ func fire_Object_RayCast():
 		var intersection = space_state.intersect_ray(ray_origin, ray_target)
 		# Ray collision found
 		if not intersection.empty():
-			if Input.is_action_just_pressed("left_click"):
-				if intersection.collider.is_in_group("TRANSFORMABLE"):
+			if intersection.collider.is_in_group("TRANSFORMABLE"):
+				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+				if Input.is_action_just_pressed("left_click"):
 					# Pass reference to object to gui
 					handle_Object(intersection.collider)
-					
+			else:
+				Input.set_default_cursor_shape(Input.CURSOR_ARROW)			
 
 func handle_Object(object):
 	# Object 
@@ -54,7 +65,7 @@ func _process(_delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
 	if cameraIsActive:
-		thirdPersonCamera.translation.x = player.translation.x
+		thirdPersonCamera.translation.x = player.translation.x + cameraXOffset
 		
 func checkForPlayer_OutofBounds():
 	if player.global_translation.y < floorBound:
@@ -65,3 +76,7 @@ func _on_OutofBoundsFloor_body_entered(body):
 	if body.name != "Player":
 		body.global_translation = body.SpawnPoint
 	# Objects without gravity
+
+
+func _on_Timer_timeout():
+	max_score += 0.1

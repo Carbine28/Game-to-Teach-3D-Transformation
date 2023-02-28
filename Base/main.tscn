@@ -1,24 +1,39 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://GUI/transformableUI/TransformableGUI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/level_default.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GUI/pause_menu/PauseMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI_Controller.gd" type="Script" id=5]
+[ext_resource path="res://GUI/level_complete/LevelCompleteUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://levels/level_1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://levels/level_2.tscn" type="PackedScene" id=8]
 
 [node name="Main" type="Spatial"]
 
 [node name="World" type="Spatial" parent="."]
 script = ExtResource( 1 )
+debug = true
+debug_level = ExtResource( 8 )
+level_Scenes = [ ExtResource( 7 ), ExtResource( 8 ) ]
 
-[node name="level_default" parent="World" instance=ExtResource( 3 )]
-
-[node name="Level_GUI" type="Control" parent="World"]
+[node name="GUI" type="Control" parent="."]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
-[node name="TransformableGUI" parent="World/Level_GUI" instance=ExtResource( 2 )]
-
-[node name="UI" type="Control" parent="."]
+[node name="GUI_Controller" type="Control" parent="GUI"]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 5 )
 
-[connection signal="visibility_changed" from="World/Level_GUI/TransformableGUI" to="World/Level_GUI/TransformableGUI" method="_on_TransformableGUI_visibility_changed"]
+[node name="TransformableGUI" parent="GUI" instance=ExtResource( 2 )]
+visible = false
+
+[node name="PauseMenu" parent="GUI" instance=ExtResource( 4 )]
+visible = false
+
+[node name="LevelCompleteUI" parent="GUI" instance=ExtResource( 6 )]
+visible = false
+
+[connection signal="visibility_changed" from="GUI/TransformableGUI" to="GUI/TransformableGUI" method="_on_TransformableGUI_visibility_changed"]

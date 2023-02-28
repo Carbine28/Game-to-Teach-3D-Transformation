@@ -13,7 +13,7 @@ var hasDecimal = false
 func _ready():
 	 # Blocks invalid characters except numbers and decimal point
 #	LineEditRegEx.compile("^[0-9.]*$")
-	#^(?:[0-9]|[\.]|[\-])*$
+	#^(?:[0-9]|[\.]|[\-])*$\
 	LineEditRegEx.compile("^-?[0-9.]*$")
 
 func _on_numberInput_text_changed(new_text):

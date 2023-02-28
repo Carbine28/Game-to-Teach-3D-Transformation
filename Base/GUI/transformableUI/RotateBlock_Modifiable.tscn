@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://GUI/transformableUI/TransformBlock_Modifiable.gd" type="Script" id=1]
+[ext_resource path="res://GUI/transformableUI/RotateBlock_Modifiable.gd" type="Script" id=1]
 [ext_resource path="res://GUI/transformableUI/numberInput.tscn" type="PackedScene" id=2]
 
-[node name="TranslateBlock" type="ColorRect"]
+[node name="RotateBlock" type="ColorRect"]
 anchor_right = 0.187
 anchor_bottom = 0.104
 margin_right = -32.4
@@ -13,6 +13,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 0
 color = Color( 0.333333, 0.847059, 0.933333, 1 )
 script = ExtResource( 1 )
+id = 1
 
 [node name="Padding" type="MarginContainer" parent="."]
 anchor_left = 0.5
@@ -42,23 +43,22 @@ margin_top = 37.0
 margin_right = 182.0
 margin_bottom = 61.0
 
-[node name="xInput" parent="Padding/vDisplayContainer/hInputContainer" instance=ExtResource( 2 )]
+[node name="scaleInput" parent="Padding/vDisplayContainer/hInputContainer" instance=ExtResource( 2 )]
+margin_left = 31.0
+margin_right = 89.0
+size_flags_horizontal = 14
+size_flags_vertical = 2
+max_length = 3
+placeholder_text = "0"
+
+[node name="OptionButton" type="OptionButton" parent="Padding/vDisplayContainer/hInputContainer"]
+margin_left = 93.0
+margin_top = 2.0
+margin_right = 129.0
+margin_bottom = 22.0
 size_flags_horizontal = 2
 size_flags_vertical = 6
-custom_colors/font_color = Color( 1, 0.188235, 0, 1 )
-
-[node name="yInput" parent="Padding/vDisplayContainer/hInputContainer" instance=ExtResource( 2 )]
-margin_left = 62.0
-margin_right = 120.0
-size_flags_horizontal = 6
-size_flags_vertical = 2
-custom_colors/font_color = Color( 0.176471, 1, 0.517647, 1 )
-
-[node name="zInput" parent="Padding/vDisplayContainer/hInputContainer" instance=ExtResource( 2 )]
-margin_left = 124.0
-margin_right = 182.0
-size_flags_horizontal = 10
-custom_colors/font_color = Color( 0, 0.905882, 1, 1 )
+text = "Y"
 
 [node name="deleteSelfButton" type="Button" parent="."]
 anchor_right = 0.996
@@ -69,7 +69,6 @@ margin_bottom = -48.0
 text = "X"
 icon_align = 1
 
-[connection signal="input_Updated" from="Padding/vDisplayContainer/hInputContainer/xInput" to="." method="_on_xInput_input_Updated"]
-[connection signal="input_Updated" from="Padding/vDisplayContainer/hInputContainer/yInput" to="." method="_on_yInput_input_Updated"]
-[connection signal="input_Updated" from="Padding/vDisplayContainer/hInputContainer/zInput" to="." method="_on_zInput_input_Updated"]
+[connection signal="input_Updated" from="Padding/vDisplayContainer/hInputContainer/scaleInput" to="." method="_on_rotInput_input_Updated"]
+[connection signal="item_selected" from="Padding/vDisplayContainer/hInputContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="deleteSelfButton" to="." method="_on_deleteSelfButton_pressed"]
