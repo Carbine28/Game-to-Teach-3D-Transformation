@@ -32,14 +32,15 @@ func _on_runButton_pressed():
 		execute_Action(blockStack[0])
 		
 func execute_Action(var block):
+	blockStack.pop_front()
 	match block.block_Type:
 			BlockType.TRANSLATE:
-				selectedObject.moveObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
+				selectedObject.Instance.moveObject(Vector3(block.x_Value, block.y_Value, block.z_Value))
 			BlockType.ROTATE:
-				selectedObject.rotateObject(block.inputOption, float(block.inputValue))
+				selectedObject.Instance.rotateObject(block.inputOption, float(block.inputValue))
 			BlockType.SCALE:
-				selectedObject.scaleObject(Vector3(block.inputValue, block.inputValue, block.inputValue))
-	blockStack.pop_front()
+				selectedObject.Instance.scaleObject(Vector3(block.inputValue, block.inputValue, block.inputValue))
+	
 
 func _on_TransformableGUI_visibility_changed():
 	_resetGUI()
@@ -59,7 +60,6 @@ func _resetGUI():
 	for child in _drawAreaContainer.get_children():
 		child.queue_free() 
 	blockStack.clear() # Clear Stack
-	
 	if selectedObject:
 		if visible:
 			selectedObject._gizmo.visible = true
@@ -87,6 +87,7 @@ func configSourceBlocks():
 			
 # Push blocks into stack
 func _on_DrawColumn_child_entered_tree(node):
+	print(node.label)
 	blockStack.push_back(node)
 	
 # Gets node that exits draw area

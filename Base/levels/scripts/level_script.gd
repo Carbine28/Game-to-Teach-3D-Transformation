@@ -1,34 +1,51 @@
 extends Spatial
 
+# Signals
+signal camera_toggled
+# Constants
+# Exported Variables
+export(int) var level_id
+# - Unused variables for scoring - #
+export var three_star: float = 10.0 
+export var two_star: float = 20.0
+export var one_star: float = 30.0
+# Regular Variables
+var cameraIsActive = true
+var ray_origin = Vector3()
+var ray_target = Vector3()
+var _transformGUI : Control
+var floorBound: float  = -40.0 
+var max_score: float = 0 # Score based on time , quicker the better
+# Onready variables
 onready var thirdPersonCamera = $Camera
 onready var player = $Player
 onready var _spawn = $LevelPoints/SpawnPoint
 
-signal camera_toggled
-var cameraIsActive = true
-var ray_origin = Vector3()
-var ray_target = Vector3()
-
-export var level_id:int = 1
-var _transformGUI : Control
-export var floorBound = -40 # Y value for player out of bounds detection
-
-# score # - based on time, quicker the better
-var max_score: float = 0 
-# Current unused, compare variables with score. 3 stars is highest score. Could play animation
-export var three_star: float = 10.0
-export var two_star: float = 20.0
-export var one_star: float = 30.0
-export var cameraXOffset: float = 5.0
 
 func _ready():
 	thirdPersonCamera.make_current()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	_transformGUI = get_node("../../GUI/TransformableGUI")
-	
+
+
 func _physics_process(_delta):
 	fire_Object_RayCast()
 	
+	
+func _process(_delta):
+	checkForPlayer_OutofBounds()
+	if Input.is_action_just_pressed("switch_camera"):
+		emit_signal("camera_toggled")
+		cameraIsActive = !cameraIsActive
+		thirdPersonCamera.set_process(cameraIsActive) # Enable/Disable TP Camera
+		if cameraIsActive:
+			thirdPersonCamera.make_current()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
+	if cameraIsActive:
+		thirdPersonCamera.translation.x = player.translation.x
+			
+			
 # Fires RayCast	towards mouse cursor
 func fire_Object_RayCast():
 	if thirdPersonCamera.current:
@@ -49,33 +66,22 @@ func fire_Object_RayCast():
 			else:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)			
 
+# This code should be in transform gui instead.
 func handle_Object(object):
 	# Object 
 	_transformGUI.selectedObject = object
 	_transformGUI.visible = true
 	
-func _process(_delta):
-	checkForPlayer_OutofBounds()
-#	if Input.is_action_just_pressed("switch_camera"):
-#		emit_signal("camera_toggled")
-#		cameraIsActive = !cameraIsActive
-#		thirdPersonCamera.set_process(cameraIsActive) # Enable/Disable TP Camera
-#		if cameraIsActive:
-#			thirdPersonCamera.make_current()
-#			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-#			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
-#	if cameraIsActive:
-	thirdPersonCamera.translation.x = player.translation.x # + cameraXOffset
 		
 func checkForPlayer_OutofBounds():
 	if player.global_translation.y < floorBound:
 		_spawn._respawnPlayer()
+	
 				
 func _on_OutofBoundsFloor_body_entered(body):
-	
 	if body.name != "Player":
-		body.global_translation = body.SpawnPoint
+		body.global_translation = body.Instance.default_position
 	# Objects without gravity
-	
+
 func _on_LevelTimer_timeout():
 	max_score += 0.1

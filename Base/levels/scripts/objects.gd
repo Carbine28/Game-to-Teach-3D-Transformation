@@ -4,7 +4,6 @@ extends Spatial
 
 var id_count:int = 0
 
-
 func _ready():
 	for child in get_children():
 		child.object_id = id_count

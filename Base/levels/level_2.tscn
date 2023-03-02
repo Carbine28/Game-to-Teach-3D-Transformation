@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://levels/level_script.gd" type="Script" id=2]
+[ext_resource path="res://levels/scripts/level_script.gd" type="Script" id=2]
+[ext_resource path="res://levels/scripts/objects.gd" type="Script" id=3]
 [ext_resource path="res://functional_objects/SpawnPoint.tscn" type="PackedScene" id=4]
 [ext_resource path="res://functional_objects/EndPoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://transformable_Objects/object.tscn" type="PackedScene" id=6]
@@ -40,6 +41,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 visible = false
 
 [node name="Objects" type="Spatial" parent="."]
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -47,7 +49,6 @@ __meta__ = {
 [node name="TransformableObject" parent="Objects" instance=ExtResource( 6 )]
 transform = Transform( 3.81717, 0, 0, 0, 1, 0, 0, 0, 3.79299, 5.42412, 2.97676, -0.506759 )
 can_translate = true
-translate_limit = Vector3( 0, 1, 0 )
 
 [node name="Obstacles" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, -1 )

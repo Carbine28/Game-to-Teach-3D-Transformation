@@ -2,7 +2,7 @@
 
 [ext_resource path="res://characters/player/hands.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.gd" type="Script" id=2]
-[ext_resource path="res://characters/player/HandBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://transformable_Objects/object.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleMesh" id=1]
 
@@ -37,7 +37,7 @@ script = ExtResource( 1 )
 box = ExtResource( 3 )
 
 [node name="Area" type="Area" parent="Body/hands"]
-transform = Transform( 0.605172, 0, 0, 0, 1.16444, 0, 0, 0, 0.512235, 0, 1.47346, -1.60719 )
+transform = Transform( 0.605172, 0, 0, 0, 0.737843, 0, 0, 0, 0.512235, 0, 1.47346, -1.60719 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -47,7 +47,6 @@ visible = false
 shape = SubResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Body/hands/Area/CollisionShape"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 6 )
 
 [node name="HandContainer" type="Spatial" parent="Body/hands"]
