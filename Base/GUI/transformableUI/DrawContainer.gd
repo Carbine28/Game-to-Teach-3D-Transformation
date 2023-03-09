@@ -10,6 +10,7 @@ var idCount: int
 var translation_limit: Vector3
 var rotation_limit: Vector3
 var root
+
 func _ready():
 	root = owner
 	idCount = 0
@@ -52,12 +53,10 @@ func configure_block_limits(block: ColorRect):
 			block.hide_input_y()
 		if translation_limit.z == 0:
 			block.hide_input_z()
+	# TODO Need to do rotation Axis
 			
-		
-	
 func _on_clearButton_pressed():
 	idCount = 0
-
 
 func _on_TransformableGUI_drawArea_block_deleted():
 	idCount -= 1

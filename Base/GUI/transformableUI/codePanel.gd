@@ -93,3 +93,7 @@ func _on_TransformableGUI_next_action_executed():
 	codeStack.front().add_color_override("font_color", Color(1,1,1,1))
 	codeStack.pop_front()
 	codeStack.front().add_color_override("font_color", Color(0,1,0,1))
+
+
+func _on_TransformableGUI_selected_object_cleared():
+	_matrixPanel.clear_matrix()

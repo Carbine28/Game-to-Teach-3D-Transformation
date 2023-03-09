@@ -1,0 +1,16 @@
+// Game: Transformer
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures/Grids;textures/Grids/Dark;textures/Grids/Green;textures/Grids/Orange"
+// brush 0
+{
+( -384 -896 -128 ) ( -384 -895 -128 ) ( -384 -896 -127 ) Grids/Dark/texture_01 384 -128 0 1 1
+( -512 -896 -128 ) ( -512 -896 -127 ) ( -511 -896 -128 ) Grids/Dark/texture_01 256 -128 0 1 1
+( -512 -896 -128 ) ( -511 -896 -128 ) ( -512 -895 -128 ) Grids/Dark/texture_01 256 -384 0 1 1
+( 1024 1024 0 ) ( 1024 1025 0 ) ( 1025 1024 0 ) Grids/Dark/texture_01 256 -384 0 1 1
+( 1024 1152 0 ) ( 1025 1152 0 ) ( 1024 1152 1 ) Grids/Dark/texture_01 256 -128 0 1 1
+( 128 1024 0 ) ( 128 1024 1 ) ( 128 1025 0 ) Grids/Dark/texture_01 384 -128 0 1 1
+}
+}

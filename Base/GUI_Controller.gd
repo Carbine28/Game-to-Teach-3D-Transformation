@@ -18,10 +18,6 @@ func _unhandled_input(event):
 				_pauseMenu.show()
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			else:
-				# Hide menu
-				if _World.current_level.thirdPersonCamera.current:
-					Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-				else:
-					Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 				_pauseMenu.hide()
 			

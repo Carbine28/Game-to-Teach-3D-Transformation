@@ -3,6 +3,7 @@ extends PanelContainer
 signal action_executed()
 signal next_action_executed()
 signal drawArea_block_deleted
+signal selected_object_cleared
 
 enum BlockType {TRANSLATE, ROTATE, SCALE}
 
@@ -45,6 +46,12 @@ func execute_Action(var block):
 func _on_TransformableGUI_visibility_changed():
 	_resetGUI()
 
+func _on_Block_Collasped():
+	emit_signal("selected_object_cleared")
+	selectedObject = null
+	_timer.start()
+	
+	
 func _on_Transform_Finished():
 	if blockStack:
 		execute_Action(blockStack[0])
@@ -56,16 +63,17 @@ func _on_Transform_Finished():
 		_timer.start()
 		
 func _resetGUI():
+	blockStack.clear() # Clear Stack
 	# Remove all block in draw area
 	for child in _drawAreaContainer.get_children():
 		child.queue_free() 
-	blockStack.clear() # Clear Stack
+	
 	if selectedObject:
 		if visible:
-			selectedObject._gizmo.visible = true
+#			selectedObject._gizmo.visible = true
 			configSourceBlocks()
-		else:
-			selectedObject._gizmo.visible = false
+#		else:
+##			selectedObject._gizmo.visible = false
 	_codePanel.hide()
 	
 	

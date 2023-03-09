@@ -40,7 +40,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=6]
-resource_name = "doorOpen"
+resource_name = "doorRaise"
 step = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("doorModel:translation")
@@ -99,4 +99,4 @@ shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
-anims/doorOpen = SubResource( 6 )
+anims/doorRaise = SubResource( 6 )

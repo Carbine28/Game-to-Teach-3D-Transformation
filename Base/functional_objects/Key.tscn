@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://functional_objects/Key.gd" type="Script" id=1]
+
+[sub_resource type="CylinderShape" id=2]
+height = 0.799327
+radius = 0.386627
+
+[sub_resource type="PrismMesh" id=1]
+
+[node name="Key" type="StaticBody"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016259, 0.29564, 0.00351071 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="Spatial" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Spatial"]
+transform = Transform( 0.352334, 0, 0, 0, 0.426046, 0, 0, 0, 0.31589, 0, 0.4, 0 )
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+
+[node name="Area" type="Area" parent="Spatial"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016259, 0.29564, 0.00351071 )
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="Spatial/Area" to="." method="_on_Area_body_entered"]

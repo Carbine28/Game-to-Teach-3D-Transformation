@@ -1,0 +1,13 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+path="res://.import/base.map-f306f8b0f0745f3bd759cbcc0d514d7c.tres"
+
+[deps]
+
+source_file="res://TrenchbroomLevels/base.map"
+dest_files=[ "res://.import/base.map-f306f8b0f0745f3bd759cbcc0d514d7c.tres" ]
+
+[params]
+

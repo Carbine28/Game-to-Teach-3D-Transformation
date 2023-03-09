@@ -252,6 +252,7 @@ one_shot = true
 [connection signal="action_executed" from="." to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_TransformableGUI_action_executed"]
 [connection signal="drawArea_block_deleted" from="." to="VBoxContainer/DrawContainer" method="_on_TransformableGUI_drawArea_block_deleted"]
 [connection signal="next_action_executed" from="." to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_TransformableGUI_next_action_executed"]
+[connection signal="selected_object_cleared" from="." to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_TransformableGUI_selected_object_cleared"]
 [connection signal="child_entered_tree" from="VBoxContainer/DrawContainer/Padding/DrawColumn" to="." method="_on_DrawColumn_child_entered_tree"]
 [connection signal="child_exiting_tree" from="VBoxContainer/DrawContainer/Padding/DrawColumn" to="." method="_on_DrawColumn_child_exiting_tree"]
 [connection signal="hide" from="VBoxContainer/DrawContainer/Padding/codePanel" to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_codePanel_hide"]

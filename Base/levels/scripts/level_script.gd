@@ -1,87 +1,35 @@
 extends Spatial
 
-# Signals
-signal camera_toggled
 # Constants
 # Exported Variables
 export(int) var level_id
+
 # - Unused variables for scoring - #
 export var three_star: float = 10.0 
 export var two_star: float = 20.0
 export var one_star: float = 30.0
 # Regular Variables
-var cameraIsActive = true
-var ray_origin = Vector3()
-var ray_target = Vector3()
 var _transformGUI : Control
-var floorBound: float  = -40.0 
-var max_score: float = 0 # Score based on time , quicker the better
-# Onready variables
-onready var thirdPersonCamera = $Camera
-onready var player = $Player
-onready var _spawn = $LevelPoints/SpawnPoint
+export var max_score: float = 0 # Score based on time , quicker the better
 
+onready var player = $Player
+#onready var _spawn = $LevelPoints/SpawnPoint
 
 func _ready():
-	thirdPersonCamera.make_current()
+	instance_timer()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	_transformGUI = get_node("../../GUI/TransformableGUI")
-
-
-func _physics_process(_delta):
-	fire_Object_RayCast()
-	
-	
-func _process(_delta):
-	checkForPlayer_OutofBounds()
-	if Input.is_action_just_pressed("switch_camera"):
-		emit_signal("camera_toggled")
-		cameraIsActive = !cameraIsActive
-		thirdPersonCamera.set_process(cameraIsActive) # Enable/Disable TP Camera
-		if cameraIsActive:
-			thirdPersonCamera.make_current()
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			player.get_node("Camera").rotation = thirdPersonCamera.rotation # reset rotation so input matches camera
-	if cameraIsActive:
-		thirdPersonCamera.translation.x = player.translation.x
-			
-			
-# Fires RayCast	towards mouse cursor
-func fire_Object_RayCast():
-	if thirdPersonCamera.current:
-		var mouse_position = get_viewport().get_mouse_position()
-		
-		ray_origin = thirdPersonCamera.project_ray_origin(mouse_position)
-		ray_target = ray_origin + thirdPersonCamera.project_ray_normal(mouse_position) * 2000
-		var space_state = get_world().direct_space_state
-		# Find anything that intersects with the ray
-		var intersection = space_state.intersect_ray(ray_origin, ray_target)
-		# Ray collision found
-		if not intersection.empty():
-			if intersection.collider.is_in_group("TRANSFORMABLE"):
-				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-				if Input.is_action_just_pressed("left_click"):
-					# Pass reference to object to gui
-					handle_Object(intersection.collider)
-			else:
-				Input.set_default_cursor_shape(Input.CURSOR_ARROW)			
-
-# This code should be in transform gui instead.
-func handle_Object(object):
-	# Object 
-	_transformGUI.selectedObject = object
-	_transformGUI.visible = true
-	
-		
-func checkForPlayer_OutofBounds():
-	if player.global_translation.y < floorBound:
-		_spawn._respawnPlayer()
-	
 				
-func _on_OutofBoundsFloor_body_entered(body):
+func instance_timer():
+	var timer:= Timer.new()
+	add_child(timer)
+	timer.start()
+	# can also set timer interval here
+	timer.connect("timeout", self,"_on_timer_timeout" )
+
+func _on_timer_timeout() -> void:
+	max_score += 0.1
+
+func _on_OutofBoundsFloor_body_entered(body) -> void:
 	if body.name != "Player":
 		body.global_translation = body.Instance.default_position
 	# Objects without gravity
-
-func _on_LevelTimer_timeout():
-	max_score += 0.1

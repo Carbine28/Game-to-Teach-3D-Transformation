@@ -37,3 +37,5 @@ func update_matrix(var _object):
 #	print(row1.get_child(0).text)
 	object = _object
 	
+func clear_matrix():
+	object = null

@@ -58,7 +58,7 @@ func _physics_process(delta):
 #	velocity = move_and_slide(velocity, Vector3.UP)
 	match floor_state:
 		PlayerFloorState.Floor:
-			velocity = move_and_slide(velocity, Vector3.UP)
+			velocity = move_and_slide(velocity, Vector3.UP )
 		PlayerFloorState.Platform:
 			velocity = move_and_slide_with_snap(velocity, -snap_vector , Vector3.UP, true,1, 0.785398, true)
 
