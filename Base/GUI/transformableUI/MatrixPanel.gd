@@ -6,6 +6,7 @@ var row2
 var row3
 var object
 
+
 func _ready():
 	row1 = _matrix.get_node("Row")
 	row2 = _matrix.get_node("Row2")
@@ -13,6 +14,9 @@ func _ready():
 	
 func _process(_delta):
 	draw_matrix()
+	
+func null_matrix():
+	object = null
 	
 func draw_matrix():
 	if object:

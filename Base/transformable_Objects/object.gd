@@ -1,6 +1,6 @@
-class_name Block
-extends KinematicBody
 
+extends KinematicBody
+class_name Block
 # Exports
 export(bool) var can_translate = true
 export(bool) var can_rotate

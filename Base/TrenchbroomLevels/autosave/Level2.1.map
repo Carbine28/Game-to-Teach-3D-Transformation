@@ -1,0 +1,25 @@
+// Game: Transformer
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures/Grids/Dark;textures/Grids/Green;textures/Grids/Light;textures/Grids/Orange"
+// brush 0
+{
+( -432 -80 -16 ) ( -432 -79 -16 ) ( -432 -80 -15 ) Grids/Dark/texture_02 0 0 0 1 1
+( -64 -256 -16 ) ( -64 -256 -15 ) ( -63 -256 -16 ) Grids/Dark/texture_02 0 0 0 1 1
+( -64 -80 -512 ) ( -63 -80 -512 ) ( -64 -79 -512 ) Grids/Dark/texture_02 0 0 0 1 1
+( 64 48 16 ) ( 64 49 16 ) ( 65 48 16 ) Grids/Dark/texture_02 0 0 0 1 1
+( 64 256 16 ) ( 65 256 16 ) ( 64 256 17 ) Grids/Dark/texture_02 0 0 0 1 1
+( 208 48 16 ) ( 208 48 17 ) ( 208 49 16 ) Grids/Dark/texture_02 0 0 0 1 1
+}
+// brush 1
+{
+( -1072 -80 -16 ) ( -1072 -79 -16 ) ( -1072 -80 -15 ) Grids/Dark/texture_02 0 0 0 1 1
+( -704 -256 -16 ) ( -704 -256 -15 ) ( -703 -256 -16 ) Grids/Dark/texture_02 0 0 0 1 1
+( -704 -80 -512 ) ( -703 -80 -512 ) ( -704 -79 -512 ) Grids/Dark/texture_02 0 0 0 1 1
+( -576 48 16 ) ( -576 49 16 ) ( -575 48 16 ) Grids/Dark/texture_02 0 0 0 1 1
+( -576 256 16 ) ( -575 256 16 ) ( -576 256 17 ) Grids/Dark/texture_02 0 0 0 1 1
+( -432 48 16 ) ( -432 48 17 ) ( -432 49 16 ) Grids/Dark/texture_02 0 0 0 1 1
+}
+}

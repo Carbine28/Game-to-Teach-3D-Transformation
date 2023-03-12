@@ -169,6 +169,5 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[connection signal="camera_toggled" from="." to="Player" method="_on_level_test_camera_toggled"]
 [connection signal="body_entered" from="OutofBoundsFloor" to="." method="_on_OutofBoundsFloor_body_entered"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]

@@ -27,7 +27,8 @@ func instance_timer():
 	timer.connect("timeout", self,"_on_timer_timeout" )
 
 func _on_timer_timeout() -> void:
-	max_score += 0.1
+	# Currently used to as a shortest time not score
+	max_score += 1
 
 func _on_OutofBoundsFloor_body_entered(body) -> void:
 	if body.name != "Player":

@@ -17,7 +17,7 @@ onready var _drawAreaContainer = $VBoxContainer/DrawContainer/Padding/DrawColumn
 onready var _drawContainer = $VBoxContainer/DrawContainer
 onready var _codePanel = $VBoxContainer/DrawContainer/Padding/codePanel
 onready var _timer = $Timer
-
+onready var _matrixPanel = $VBoxContainer/DrawContainer/Padding/codePanel/padding/VBoxContainer/MatrixPanel
 
 func _ready():
 	_resetGUI()
@@ -63,6 +63,7 @@ func _on_Transform_Finished():
 		_timer.start()
 		
 func _resetGUI():
+	_matrixPanel.null_matrix()
 	blockStack.clear() # Clear Stack
 	# Remove all block in draw area
 	for child in _drawAreaContainer.get_children():

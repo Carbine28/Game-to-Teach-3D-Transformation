@@ -130,7 +130,6 @@ __meta__ = {
 
 [node name="object_Transformable" parent="objects_modifiable" instance=ExtResource( 6 )]
 transform = Transform( 2.41115, 0, 0, 0, 0.705469, 0, 0, 0, 2.55941, -7.43625, 0.318225, 0.10223 )
-can_translate = true
 
 [node name="obstacles" type="Spatial" parent="."]
 

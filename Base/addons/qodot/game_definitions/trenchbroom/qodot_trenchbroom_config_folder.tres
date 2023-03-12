@@ -6,6 +6,7 @@
 [ext_resource path="res://addons/qodot/game_definitions/trenchbroom/qodot_trenchbroom_config_file.tres" type="Resource" id=4]
 
 [resource]
+resource_name = "yes"
 script = ExtResource( 3 )
 export_file = false
 trenchbroom_games_folder = "F:/College_Work/TrenchBroom/games"

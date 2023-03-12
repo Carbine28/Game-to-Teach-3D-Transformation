@@ -74,5 +74,13 @@ script = ExtResource( 6 )
 [node name="CameraComponent" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 12.5, 15 )
 
+[node name="Camera" parent="CameraComponent/CameraPivot" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00477219, 0.0240068, -0.0342846 )
+margin = 0.15
+process_mode = 0
+collision_mask = 0
+
 [connection signal="body_entered" from="Body/hands/Area" to="Body/hands" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Body/hands/Area" to="Body/hands" method="_on_Area_body_exited"]
+
+[editable path="CameraComponent"]

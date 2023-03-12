@@ -131,8 +131,6 @@ __meta__ = {
 
 [node name="object_Transformable" parent="objects" instance=ExtResource( 6 )]
 transform = Transform( 0.993529, 0, 0, 0, 20.0366, 0, 0, 0, 17.9104, 3.99739, 5.28034, 7.61084 )
-visible = true
-can_translate = true
 
 [node name="obstacles" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, -1 )
