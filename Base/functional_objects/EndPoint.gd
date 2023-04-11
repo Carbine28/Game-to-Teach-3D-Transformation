@@ -5,7 +5,7 @@ var _levelCompleteMenu
 
 # Need to change model of end point
 func _ready():
-	var model = $model
+#	var model = $model
 	_levelCompleteMenu = get_tree().get_root().get_node("Main/GUI/LevelCompleteUI")
 # warning-ignore:return_value_discarded
 	connect("level_completed", _levelCompleteMenu, "_on_level_complete")

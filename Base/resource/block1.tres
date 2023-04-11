@@ -1,0 +1,12 @@
+[gd_resource type="CubeMesh" load_steps=3 format=2]
+
+[ext_resource path="res://shaders/block_shader.gdshader" type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = ExtResource( 1 )
+shader_param/block_color = Color( 1, 0.701961, 0, 1 )
+
+[resource]
+resource_local_to_scene = true
+material = SubResource( 9 )

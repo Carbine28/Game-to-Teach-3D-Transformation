@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://functional_objects/targetObject.gd" type="Script" id=1]
+[ext_resource path="res://shaders/targetObject.gdshader" type="Shader" id=2]
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+render_priority = -1
+shader = ExtResource( 2 )
+shader_param/_alpha = 1.0
+shader_param/_color = Color( 0.792157, 0.792157, 0.792157, 1 )
+
+[sub_resource type="CubeMesh" id=1]
+resource_local_to_scene = true
+material = SubResource( 3 )
+
+[node name="targetObject" type="Spatial" groups=["TARGET"]]
+script = ExtResource( 1 )
+scale_modifier = 1.0
+distance_threshhold = 0.5
+degree_threshold = 10.0
+scale_theshold = 10.0
+default_color = Color( 0.623529, 0.623529, 0.623529, 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.562, 0, 0, 0, 0.454, 0, 0, 0, 0.571, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

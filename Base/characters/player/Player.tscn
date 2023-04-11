@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://characters/player/hands.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.gd" type="Script" id=2]
@@ -6,7 +6,10 @@
 [ext_resource path="res://transformable_Objects/physic_object.tscn" type="PackedScene" id=4]
 [ext_resource path="res://characters/player/KeyComponent.gd" type="Script" id=5]
 [ext_resource path="res://characters/player/CoinComponent.gd" type="Script" id=6]
-[ext_resource path="res://characters/player/CameraComponent.tscn" type="PackedScene" id=7]
+[ext_resource path="res://characters/player/SpringArm.gd" type="Script" id=7]
+[ext_resource path="res://characters/player/RayCast.gd" type="Script" id=8]
+[ext_resource path="res://characters/player/CameraComponent.gd" type="Script" id=9]
+[ext_resource path="res://functional_objects/Flashlight.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleMesh" id=1]
 
@@ -25,6 +28,9 @@ height = 0.002
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
 
+[node name="CameraAnchorPos" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.63428, 0 )
+
 [node name="Body" type="Spatial" parent="."]
 
 [node name="body" type="MeshInstance" parent="Body"]
@@ -41,9 +47,10 @@ script = ExtResource( 1 )
 box = ExtResource( 3 )
 block1 = ExtResource( 3 )
 block2 = ExtResource( 4 )
+flashlight = ExtResource( 10 )
 
 [node name="Area" type="Area" parent="Body/hands"]
-transform = Transform( 0.605172, 0, 0, 0, 0.737843, 0, 0, 0, 0.512235, 0, 1.47346, -1.60719 )
+transform = Transform( 0.605172, 0, 0, 0, 1.42175, 0, 0, 0, 0.512235, 0, 1.47346, -1.60719 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -62,6 +69,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0 )
 transform = Transform( 1, 0, 0, 0, -7.42236e-08, -1.69804, 0, 1, -4.37114e-08, 0, 1.576, 0 )
 shape = SubResource( 2 )
 
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44537, 0 )
+enabled = true
+cast_to = Vector3( 0, -2, 0 )
+script = ExtResource( 8 )
+
 [node name="KeyComponent" type="Node" parent="."]
 script = ExtResource( 5 )
 __meta__ = {
@@ -71,16 +84,15 @@ __meta__ = {
 [node name="CoinComponent" type="Node" parent="."]
 script = ExtResource( 6 )
 
-[node name="CameraComponent" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 12.5, 15 )
+[node name="CameraComponent" type="Spatial" parent="."]
+script = ExtResource( 9 )
 
-[node name="Camera" parent="CameraComponent/CameraPivot" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00477219, 0.0240068, -0.0342846 )
-margin = 0.15
-process_mode = 0
-collision_mask = 0
+[node name="SpringArm" type="SpringArm" parent="."]
+spring_length = 10.0
+margin = 0.02
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="SpringArm"]
 
 [connection signal="body_entered" from="Body/hands/Area" to="Body/hands" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Body/hands/Area" to="Body/hands" method="_on_Area_body_exited"]
-
-[editable path="CameraComponent"]

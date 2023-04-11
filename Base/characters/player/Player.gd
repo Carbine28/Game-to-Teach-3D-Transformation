@@ -20,11 +20,12 @@ var direction = Vector3.ZERO
 var prevDirection = Vector3.ZERO
 var cameraIsActive = false # first person camera
 var SpawnPoint
-var snap_vector
-var picked_Object # Unused
+var snap_vector = Vector3.DOWN
 var floor_state
+var last_direction = Vector3.FORWARD
 # Onready Variables
 onready var _body = $Body
+onready var _spring_arm: SpringArm = $SpringArm
 
 
 func _ready():
@@ -41,10 +42,13 @@ func _physics_process(delta):
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), 
 		0,
 		Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
-	).normalized()
+	)
+#	.normalized()
+	direction = direction.rotated(Vector3.UP, _spring_arm.rotation.y).normalized()
 #	.rotated(Vector3.UP, _camera.rotation.y)
 	
 	if direction != Vector3.ZERO:
+			last_direction = direction
 			_body.look_at(translation + direction, Vector3.UP)
 			
 	# Interpolate current velocity to desired velocity
@@ -62,7 +66,9 @@ func _physics_process(delta):
 		PlayerFloorState.Platform:
 			velocity = move_and_slide_with_snap(velocity, -snap_vector , Vector3.UP, true,1, 0.785398, true)
 
-
+func _process(_delta):
+	pass
+	
 func _jump(delta):
 	# Coyote time based jumps 
 	if is_on_floor():
@@ -77,4 +83,6 @@ func _jump(delta):
 	if (Input.is_action_just_released("jump") and velocity.y > 0.0):
 		coyoteTimeCounter = 0.0
 
+func change_floor_state(var _state):
+	floor_state = _state
 		

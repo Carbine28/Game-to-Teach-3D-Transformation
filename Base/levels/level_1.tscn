@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=2]
+[gd_scene load_steps=108 format=2]
 
 [ext_resource path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" type="Resource" id=1]
 [ext_resource path="res://textures/Grids/Dark/texture_02.png" type="Texture" id=2]
@@ -8,19 +8,21 @@
 [ext_resource path="res://transformable_Objects/object.gd" type="Script" id=6]
 [ext_resource path="res://textures/Grids/Light/texture_08.png" type="Texture" id=7]
 [ext_resource path="res://textures/Grids/Light/texture_04.png" type="Texture" id=8]
-[ext_resource path="res://textures/Grids/Orange/texture_10.png" type="Texture" id=9]
+[ext_resource path="res://shaders/block_shader.gdshader" type="Shader" id=9]
 [ext_resource path="res://textures/Grids/Green/texture_01.png" type="Texture" id=10]
-[ext_resource path="res://textures/Grids/Orange/texture_11.png" type="Texture" id=11]
+[ext_resource path="res://functional_objects/Checkpoint.tscn" type="PackedScene" id=11]
 [ext_resource path="res://functional_objects/EndPoint.tscn" type="PackedScene" id=12]
 [ext_resource path="res://textures/Grids/Dark/texture_05.png" type="Texture" id=13]
+[ext_resource path="res://functional_objects/Coin.tscn" type="PackedScene" id=14]
+[ext_resource path="res://levels/CoinContainer.gd" type="Script" id=15]
+[ext_resource path="res://functional_objects/OutofBounds.tscn" type="PackedScene" id=16]
 
-[sub_resource type="ProceduralSky" id=146]
+[sub_resource type="ProceduralSky" id=233]
 sky_top_color = Color( 0.156863, 0.635294, 0.901961, 1 )
 
 [sub_resource type="Environment" id=34]
 background_mode = 2
-background_sky = SubResource( 146 )
-background_sky_orientation = Basis( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693 )
+background_sky = SubResource( 233 )
 background_color = Color( 0.415686, 0.690196, 0.956863, 1 )
 ambient_light_color = Color( 0.839216, 0.580392, 0.580392, 1 )
 
@@ -318,8 +320,9 @@ points = PoolVector3Array( 49, 2, -8, 49, -5, -8, 50, -5, -8, 50, 2, -8, 49, 1, 
 [sub_resource type="ConvexPolygonShape" id=220]
 points = PoolVector3Array( 69, 2, -13, 69, -4, -13, 70, -4, -13, 70, 2, -13, 69, 2, 4, 69, 0, 7, 69, -4, 7, 70, -4, 7, 70, 2, 4, 70, 0, 7 )
 
-[sub_resource type="SpatialMaterial" id=221]
-albedo_texture = ExtResource( 9 )
+[sub_resource type="ShaderMaterial" id=234]
+shader = ExtResource( 9 )
+shader_param/block_color = Color( 1, 0.537255, 0, 1 )
 
 [sub_resource type="ArrayMesh" id=222]
 surfaces/0 = {
@@ -329,7 +332,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 36,
-"material": SubResource( 221 ),
+"material": SubResource( 234 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 24
@@ -338,8 +341,9 @@ surfaces/0 = {
 [sub_resource type="ConvexPolygonShape" id=223]
 points = PoolVector3Array( -3, 1.5, -2, -3, -1.5, -2, 3, -1.5, -2, 3, 1.5, -2, -3, 1.5, 2, -3, -1.5, 2, 3, -1.5, 2, 3, 1.5, 2 )
 
-[sub_resource type="SpatialMaterial" id=224]
-albedo_texture = ExtResource( 11 )
+[sub_resource type="ShaderMaterial" id=235]
+shader = ExtResource( 9 )
+shader_param/block_color = Color( 1, 0.470588, 0, 1 )
 
 [sub_resource type="ArrayMesh" id=225]
 surfaces/0 = {
@@ -349,7 +353,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 252,
-"material": SubResource( 224 ),
+"material": SubResource( 235 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 168
@@ -660,7 +664,10 @@ shape = SubResource( 231 )
 shape = SubResource( 232 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.59671, 2.1, -2.27416 )
+transform = Transform( 6.70552e-08, 0, -1, 0, 1, 0, 1, 0, 6.70552e-08, -2.34394, 1.31134, 0 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="EndPoint" parent="." instance=ExtResource( 12 )]
 transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 72.6, 4, -54.5 )
@@ -679,5 +686,23 @@ __meta__ = {
 [node name="CollisionShape" type="CollisionShape" parent="WallBound/Area"]
 shape = SubResource( 90 )
 
+[node name="CoinContainer" type="Spatial" parent="."]
+script = ExtResource( 15 )
+
+[node name="Coin3" parent="CoinContainer" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 72.4703, -1.36508, -33.4635 )
+
+[node name="Coin" parent="CoinContainer" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 59.7534, -2.11649, -9.84257 )
+
+[node name="Coin2" parent="CoinContainer" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.13, 5.70815, 0.730018 )
+
+[node name="Checkpoint" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6871, 3.18391, 0.0667021 )
+
+[node name="OutofBounds" parent="." instance=ExtResource( 16 )]
+transform = Transform( 70, 0, 0, 0, 1, 0, 0, 0, 60, 45.6, -14.3, -7.5 )
+_checkpoint_path = NodePath("../Checkpoint")
+
 [editable path="Player"]
-[editable path="Player/CameraComponent"]

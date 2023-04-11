@@ -1,19 +1,14 @@
 extends Block
 signal block_collasped
 
-var gravity = Vector3.ZERO
-var _gravity: bool = true
-
 onready var _timer = $CollaspeTimer
 export var transform_limit: int = 1 # Can only transform once
-export var gravity_accel: float = 0.05
-export var gravity_y_cap: float = 1
-
 
 func __ready():
 	var _gui = get_tree().root.get_child(0).get_node("World/../GUI/TransformableGUI")
+# warning-ignore:return_value_discarded
 	connect("block_collasped", _gui, "_on_Block_Collasped")
-	block_type == "COLLASPE"
+	block_type = "COLLASPE"
 	
 func check_collaspable_limit():
 	transform_limit -= 1
@@ -30,22 +25,6 @@ func _on_Timer_timeout():
 	queue_free() 	
 
 
-func handle_state_transforms(delta):
-	Instance.current_position = global_translation
-	match Instance.object_state:
-		Instance.State.TRANSLATION:
-			handle_state_translation(delta)
-			gravity.y = gravity_accel
-		Instance.State.ROTATION:
-			handle_state_rotation(delta)
-			gravity.y = gravity_accel
-		Instance.State.SCALE:
-			handle_state_scale(delta)
-			gravity.y = gravity_accel
-		Instance.State.PASSIVE:
-			if _gravity:
-				gravity.y -= (gravity_accel * delta)
-				move_and_collide(gravity)
 			
 func handle_state_translation(delta):
 	if (Instance.current_position - Instance.target_position).length() > 0.1:
@@ -68,7 +47,8 @@ func handle_state_translation(delta):
 						Instance.object_state = Instance.State.PASSIVE
 						check_collaspable_limit()
 				else:
-					move_and_slide(velocity )
+# warning-ignore:return_value_discarded
+					move_and_slide(velocity)
 #					translation += velocity
 					
 	else:
@@ -143,13 +123,13 @@ func _on_Area_body_entered(body):
 			movable_object = body
 			# Translate block slightly out of collision margin
 			movable_object.translation += Vector3(0, .02, 0)
-			body._gravity = false
+			body.has_gravity = false
 
 func _on_Area_body_exited(body):
 	if body.name == "Player":
 		body.floor_state = body.PlayerFloorState.Floor # Change player movement to floor type.
 	elif body == movable_object:
-		body._gravity = true
+		body.has_gravity = true
 		movable_object = null
 
 

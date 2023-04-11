@@ -13,6 +13,7 @@ var restarted_level
 var next_level
 var highest_level: int
 onready var _transform_gui = $"../GUI/TransformableGUI"
+
 # Built in virtual methods
 func _ready():
 	
