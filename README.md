@@ -1,3 +1,3 @@
 # GodotTestProjects
 
-A repo for testing game functionalities developed in godot
+A repo for for my FYP
