@@ -2,9 +2,11 @@ extends Panel
 
 onready var _button = $"../../../ButtonPanel/MarginContainer/HBoxContainer/codeButton"
 onready var _GUI = $"../../../../"
-onready var _codeContainer = $"padding/codeContainer"
+onready var _codeContainer = $"padding/VBoxContainer/codeContainer"
+onready var _matrixPanel = $padding/VBoxContainer/MatrixPanel
 
 var blockStack: Array
+var object
 var codeStack: Array
 
 func _on_codeButton_pressed():
@@ -19,7 +21,10 @@ func _on_codeButton_pressed():
 
 func set_code():
 	blockStack = _GUI.blockStack
+	
 	if blockStack:
+		object = _GUI.selectedObject
+		_matrixPanel.update_matrix(object)
 		var line = Label.new()
 		line.autowrap = true
 		line.text = " // First create Identity Matrix\nmat4 mMatrix = mat4(1.0f)\n\n"
@@ -57,14 +62,17 @@ func set_code():
 					var formatted_string = string % [block.inputValue, block.inputValue, block.inputValue]
 					line.text += formatted_string
 			codeStack.push_back(line)
-			print(codeStack)
+#			print(codeStack)
 			_codeContainer.add_child(line)
 	else:
 		var line = Label.new()
 		line.autowrap = true
 		line.text = "Drag some blocks into the drawing area to get started!"
 		_codeContainer.add_child(line)
-
+		
+func print_matrix():
+	pass
+	
 func clear_code():
 	for child in _codeContainer.get_children():
 		child.queue_free()
@@ -85,3 +93,7 @@ func _on_TransformableGUI_next_action_executed():
 	codeStack.front().add_color_override("font_color", Color(1,1,1,1))
 	codeStack.pop_front()
 	codeStack.front().add_color_override("font_color", Color(0,1,0,1))
+
+
+func _on_TransformableGUI_selected_object_cleared():
+	_matrixPanel.clear_matrix()

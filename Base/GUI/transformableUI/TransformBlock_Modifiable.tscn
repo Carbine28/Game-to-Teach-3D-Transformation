@@ -45,7 +45,9 @@ margin_bottom = 61.0
 [node name="xInput" parent="Padding/vDisplayContainer/hInputContainer" instance=ExtResource( 2 )]
 size_flags_horizontal = 2
 size_flags_vertical = 6
+custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 1, 0.188235, 0, 1 )
+placeholder_alpha = 1.0
 
 [node name="yInput" parent="Padding/vDisplayContainer/hInputContainer" instance=ExtResource( 2 )]
 margin_left = 62.0

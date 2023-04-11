@@ -124,15 +124,13 @@ transform = Transform( 1, 0, 0, 0, 0.650642, 0.759385, 0, -0.759385, 0.650642, -
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100951, 0.79234, 0.0118334 )
 visible = false
 
-[node name="objects_modifiable" type="Spatial" parent="."]
+[node name="objects" type="Spatial" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="object_Transformable" parent="objects_modifiable" instance=ExtResource( 6 )]
+[node name="object_Transformable" parent="objects" instance=ExtResource( 6 )]
 transform = Transform( 0.993529, 0, 0, 0, 20.0366, 0, 0, 0, 17.9104, 3.99739, 5.28034, 7.61084 )
-can_translate = true
-translateLimit = Vector3( 0, 1, 1 )
 
 [node name="obstacles" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, -1 )

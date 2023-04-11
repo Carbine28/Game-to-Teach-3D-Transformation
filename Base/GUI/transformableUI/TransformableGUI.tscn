@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://GUI/transformableUI/codePanel.gd" type="Script" id=1]
 [ext_resource path="res://GUI/transformableUI/TransformBlock.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/transformableUI/MatrixPanel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GUI/transformableUI/DrawContainer.gd" type="Script" id=4]
 [ext_resource path="res://GUI/transformableUI/TransformableGUI.gd" type="Script" id=5]
+[ext_resource path="res://GUI/transformableUI/MatrixPanel.gd" type="Script" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.254902, 0.254902, 0.254902, 1 )
@@ -150,7 +152,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="codePanel" type="Panel" parent="VBoxContainer/DrawContainer/Padding"]
-visible = false
 margin_right = 392.0
 margin_bottom = 464.0
 custom_styles/panel = SubResource( 7 )
@@ -165,9 +166,28 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="codeContainer" type="VBoxContainer" parent="VBoxContainer/DrawContainer/Padding/codePanel/padding"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/DrawContainer/Padding/codePanel/padding"]
 margin_right = 327.0
-margin_bottom = 400.0
+margin_bottom = 404.0
+
+[node name="MatrixPanel" parent="VBoxContainer/DrawContainer/Padding/codePanel/padding/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 63.0
+margin_right = 263.0
+margin_bottom = 100.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource( 6 )
+
+[node name="codeContainer" type="VBoxContainer" parent="VBoxContainer/DrawContainer/Padding/codePanel/padding/VBoxContainer"]
+margin_left = 13.0
+margin_top = 104.0
+margin_right = 313.0
+margin_bottom = 404.0
+rect_min_size = Vector2( 300, 300 )
+size_flags_horizontal = 6
+size_flags_vertical = 10
 
 [node name="ButtonPanel" type="Panel" parent="VBoxContainer"]
 margin_top = 592.0
@@ -232,6 +252,7 @@ one_shot = true
 [connection signal="action_executed" from="." to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_TransformableGUI_action_executed"]
 [connection signal="drawArea_block_deleted" from="." to="VBoxContainer/DrawContainer" method="_on_TransformableGUI_drawArea_block_deleted"]
 [connection signal="next_action_executed" from="." to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_TransformableGUI_next_action_executed"]
+[connection signal="selected_object_cleared" from="." to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_TransformableGUI_selected_object_cleared"]
 [connection signal="child_entered_tree" from="VBoxContainer/DrawContainer/Padding/DrawColumn" to="." method="_on_DrawColumn_child_entered_tree"]
 [connection signal="child_exiting_tree" from="VBoxContainer/DrawContainer/Padding/DrawColumn" to="." method="_on_DrawColumn_child_exiting_tree"]
 [connection signal="hide" from="VBoxContainer/DrawContainer/Padding/codePanel" to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_codePanel_hide"]

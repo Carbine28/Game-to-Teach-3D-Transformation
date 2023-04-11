@@ -1,0 +1,7 @@
+// Game: Transformer
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures/Grids;textures/Grids/Dark;textures/Grids/Green;textures/Grids/Orange"
+}

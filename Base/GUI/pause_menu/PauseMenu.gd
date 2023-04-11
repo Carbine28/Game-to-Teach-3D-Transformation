@@ -4,6 +4,7 @@ onready var _World = $"../../World"
 signal restart_pressed
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("restart_pressed", _World, "on_restart_pressed")
 	
 func _on_PauseMenu_hide():
