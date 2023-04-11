@@ -25,7 +25,6 @@ default_font = SubResource( 1 )
 
 [node name="World" type="Spatial" parent="."]
 script = ExtResource( 1 )
-debug = true
 debug_level = ExtResource( 11 )
 level_Scenes = [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ) ]
 
