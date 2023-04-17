@@ -11,7 +11,9 @@ extents = Vector3( 0.5, 0.5, 0.5 )
 extents = Vector3( 0.186569, 0.156937, 0.19428 )
 
 [node name="TransformableObject" type="KinematicBody"]
+collision_layer = 4
 script = ExtResource( 1 )
+_gizmo = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1.17087, 0, 0, 0, 0.96205, 0, 0, 0, 1.30107, 0, 0, 0 )
@@ -37,9 +39,6 @@ monitorable = false
 [node name="CollisionShape" type="CollisionShape" parent="model/Area"]
 transform = Transform( 0.85, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 4 )
-
-[node name="gizmo" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [connection signal="body_entered" from="model/Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="model/Area" to="." method="_on_Area_body_exited"]

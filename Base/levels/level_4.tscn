@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=2]
+[gd_scene load_steps=109 format=2]
 
 [ext_resource path="res://levels/CoinContainer.gd" type="Script" id=1]
 [ext_resource path="res://levels/scripts/level_script.gd" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://transformable_Objects/object.gd" type="Script" id=18]
 [ext_resource path="res://transformable_Objects/physic_object.gd" type="Script" id=19]
 [ext_resource path="res://functional_objects/Checkpoint.tscn" type="PackedScene" id=20]
+[ext_resource path="res://transformable_Objects/gizmo.tscn" type="PackedScene" id=21]
 
 [sub_resource type="ProceduralSky" id=2]
 sky_top_color = Color( 0.690196, 0.639216, 0.34902, 1 )
@@ -628,6 +629,7 @@ script = ExtResource( 19 )
 __meta__ = {
 "_edit_group_": true
 }
+_gizmo = ExtResource( 21 )
 has_physics = true
 can_scale = true
 translate_axis_limit = Vector3( 1, 1, 0 )
@@ -642,6 +644,7 @@ shape = SubResource( 78 )
 [node name="entity_2_func_group" type="KinematicBody" parent="QodotMap"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 5.5, -3.5 )
 script = ExtResource( 18 )
+_gizmo = ExtResource( 21 )
 
 [node name="entity_2_mesh_instance" type="MeshInstance" parent="QodotMap/entity_2_func_group"]
 mesh = SubResource( 80 )
@@ -652,6 +655,7 @@ shape = SubResource( 81 )
 [node name="entity_3_func_group" type="KinematicBody" parent="QodotMap"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, -5.5, 7 )
 script = ExtResource( 18 )
+_gizmo = ExtResource( 21 )
 
 [node name="entity_3_mesh_instance" type="MeshInstance" parent="QodotMap/entity_3_func_group"]
 mesh = SubResource( 82 )
@@ -662,6 +666,7 @@ shape = SubResource( 83 )
 [node name="entity_4_func_group" type="KinematicBody" parent="QodotMap"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 1.72936, 1.5 )
 script = ExtResource( 18 )
+_gizmo = ExtResource( 21 )
 translate_axis_limit = Vector3( 1, 1, 0 )
 
 [node name="entity_4_mesh_instance" type="MeshInstance" parent="QodotMap/entity_4_func_group"]
@@ -674,7 +679,6 @@ shape = SubResource( 85 )
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -73.3489, 2.78896, 3.60602 )
-collision_mask = 3
 __meta__ = {
 "_edit_group_": true
 }

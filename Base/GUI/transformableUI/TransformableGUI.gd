@@ -31,7 +31,7 @@ func execute_Action(var block):
 				selectedObject.Instance.rotateObject(block.inputOption, float(block.inputValue))
 			BlockType.SCALE:
 				selectedObject.Instance.scaleObject(Vector3(block.inputValue, block.inputValue, block.inputValue))
-	
+				
 
 func select_object(object):
 	if object.is_in_group("BLOCK"):
@@ -61,7 +61,7 @@ func show_GUI():
 	configSourceBlocks()
 	visible = true
 
-func configSourceBlocks():
+func configSourceBlocks(): 
 	if selectedObject.is_in_group("BLOCK"):
 		if selectedObject.can_translate:
 			_translateSource.show()
@@ -91,7 +91,7 @@ func _on_Transform_Finished():
 		for child in _drawAreaContainer.get_children():
 			child.queue_free()
 		# Start 1 second timer here
-		_timer.start()
+#		_timer.start()
 				
 func _on_DrawColumn_child_entered_tree(node):
 	blockStack.push_back(node) # Push blocks into stack

@@ -26,6 +26,8 @@ albedo_color = Color( 0.298039, 0.290196, 0.290196, 1 )
 height = 0.002
 
 [node name="Player" type="KinematicBody"]
+collision_layer = 7
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="CameraAnchorPos" type="Spatial" parent="."]
@@ -73,6 +75,7 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44537, 0 )
 enabled = true
 cast_to = Vector3( 0, -2, 0 )
+collision_mask = 3
 script = ExtResource( 8 )
 
 [node name="KeyComponent" type="Node" parent="."]
