@@ -41,3 +41,5 @@ func _on_OutofBoundsFloor_body_entered(body) -> void:
 	if body.name != "Player":
 		body.global_translation = body.Instance.default_position
 	# Objects without gravity
+
+

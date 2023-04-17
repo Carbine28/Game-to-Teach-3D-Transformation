@@ -1,6 +1,9 @@
 
 extends KinematicBody
 class_name Block
+
+
+export(PackedScene) var _gizmo
 # Exports variables
 export(bool) var has_physics = false # Handles gravity
 export(bool) var can_translate = true # Allows usage of translation block
@@ -37,6 +40,9 @@ var has_gravity: bool = false
 var target_object
 
 func _ready():
+	if _gizmo:
+		var gizmo_instance = _gizmo.instance()
+		add_child(gizmo_instance)
 	load_mesh()
 	# Connect Signal To Transformable GUI . Emit a signal per action committed
 	var _gui = get_tree().root.get_child(0).get_node("World/../GUI/TransformableGUI")

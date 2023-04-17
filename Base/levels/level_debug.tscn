@@ -110,6 +110,7 @@ shadow_enabled = true
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100951, 0.79234, 0.0118334 )
 visible = false
+collision_mask = 0
 
 [node name="objects_modifiable" type="Spatial" parent="."]
 __meta__ = {
@@ -172,6 +173,7 @@ __meta__ = {
 
 [node name="TransformableObject" parent="Objects" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, -5 )
+collision_layer = 1
 __meta__ = {
 "_edit_group_": true
 }
@@ -182,6 +184,7 @@ rotate_axis_limit = Vector3( 1, 1, 1 )
 
 [node name="TransformableObject3" parent="Objects" instance=ExtResource( 7 )]
 transform = Transform( 2.26856, 0, 0, 0, 1, 0, 0, 0, 1.62454, -16, 1, -6.50643 )
+collision_layer = 7
 __meta__ = {
 "_edit_group_": true
 }

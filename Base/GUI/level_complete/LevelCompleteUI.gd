@@ -5,11 +5,13 @@ signal restart_pressed
 onready var _World = $"../../World"
 onready var _score = $Padding/VBoxContainer/scorePanel/score
 onready var _nextButton = $Padding/VBoxContainer/H_ButtonContainer/next_level
+onready var _tGYU = $"../TransformableGUI"
 var max_level
 
 var current_level_id
 
 func _ready():
+	
 # warning-ignore:return_value_discarded
 	connect("restart_pressed", _World, "on_restart_pressed")
 # warning-ignore:return_value_discarded
@@ -17,6 +19,7 @@ func _ready():
 	max_level = _World.level_Scenes.size() - 1
 	
 func _on_level_complete():
+	_tGYU.hide_GUI()
 	current_level_id = _World.current_level.level_id
 	if current_level_id >= max_level:
 		_nextButton.hide()

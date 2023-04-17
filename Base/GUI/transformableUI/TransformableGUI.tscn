@@ -247,6 +247,7 @@ custom_styles/normal = SubResource( 6 )
 text = "Run Blocks"
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [connection signal="action_executed" from="." to="VBoxContainer/DrawContainer/Padding/codePanel" method="_on_TransformableGUI_action_executed"]

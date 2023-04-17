@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://GUI/transformableUI/TransformableGUI.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://levels/level_4.tscn" type="PackedScene" id=8]
 [ext_resource path="res://levels/level_3.tscn" type="PackedScene" id=9]
 [ext_resource path="res://levels/level_5.tscn" type="PackedScene" id=10]
-[ext_resource path="res://levels/level_debug.tscn" type="PackedScene" id=11]
 [ext_resource path="res://levels/Level_6.tscn" type="PackedScene" id=12]
 [ext_resource path="res://addons/fonts/ARIAL.TTF" type="DynamicFontData" id=13]
 
@@ -25,7 +24,7 @@ default_font = SubResource( 1 )
 
 [node name="World" type="Spatial" parent="."]
 script = ExtResource( 1 )
-debug_level = ExtResource( 11 )
+debug_level = ExtResource( 9 )
 level_Scenes = [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ) ]
 
 [node name="GUI" type="Control" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=2]
+[gd_scene load_steps=112 format=2]
 
 [ext_resource path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" type="Resource" id=1]
 [ext_resource path="res://textures/Grids/Dark/texture_02.png" type="Texture" id=2]
@@ -16,6 +16,9 @@
 [ext_resource path="res://functional_objects/Coin.tscn" type="PackedScene" id=14]
 [ext_resource path="res://levels/CoinContainer.gd" type="Script" id=15]
 [ext_resource path="res://functional_objects/OutofBounds.tscn" type="PackedScene" id=16]
+[ext_resource path="res://levels/dialogueCol.gd" type="Script" id=17]
+[ext_resource path="res://transformable_Objects/gizmo.tscn" type="PackedScene" id=18]
+[ext_resource path="res://dialogueCol.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ProceduralSky" id=233]
 sky_top_color = Color( 0.156863, 0.635294, 0.901961, 1 )
@@ -386,6 +389,9 @@ size = Vector3( 100, 50, 1 )
 [sub_resource type="BoxShape" id=90]
 extents = Vector3( 15, 25, 1 )
 
+[sub_resource type="BoxShape" id=236]
+extents = Vector3( 10, 5, 10 )
+
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 5 )
 
@@ -624,8 +630,9 @@ shape = SubResource( 219 )
 shape = SubResource( 220 )
 
 [node name="entity_1_func_group" type="KinematicBody" parent="QodotMap"]
-transform = Transform( 0.957876, 0, 0, 0, 1, 0, 0, 0, 1, 60, -2.5, -10 )
+transform = Transform( 0.909982, 0, 0, 0, 0.9, 0, 0, 0, 1, 60, -2.5, -10 )
 script = ExtResource( 6 )
+_gizmo = ExtResource( 18 )
 translate_axis_limit = Vector3( 0, 1, 0 )
 
 [node name="entity_1_mesh_instance" type="MeshInstance" parent="QodotMap/entity_1_func_group"]
@@ -637,6 +644,7 @@ shape = SubResource( 223 )
 [node name="entity_2_func_group" type="KinematicBody" parent="QodotMap"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.974978, 81.0726, -3.07143, -35.1391 )
 script = ExtResource( 6 )
+_gizmo = ExtResource( 18 )
 translate_axis_limit = Vector3( 1, 0, 0 )
 
 [node name="entity_2_mesh_instance" type="MeshInstance" parent="QodotMap/entity_2_func_group"]
@@ -704,5 +712,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6871, 3.18391, 0.0667021 )
 [node name="OutofBounds" parent="." instance=ExtResource( 16 )]
 transform = Transform( 70, 0, 0, 0, 1, 0, 0, 0, 60, 45.6, -14.3, -7.5 )
 _checkpoint_path = NodePath("../Checkpoint")
+
+[node name="dialogueCol" parent="." instance=ExtResource( 19 )]
+
+[node name="dialogueCol2" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 58.5, 1, 0 )
+script = ExtResource( 17 )
+timeline_str = "Controls"
+
+[node name="CollisionShape" type="CollisionShape" parent="dialogueCol2"]
+shape = SubResource( 236 )
+
+[connection signal="body_entered" from="dialogueCol2" to="dialogueCol2" method="_on_dialogueCol_body_entered"]
 
 [editable path="Player"]

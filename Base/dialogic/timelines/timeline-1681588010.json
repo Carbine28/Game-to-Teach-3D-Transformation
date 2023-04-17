@@ -1,0 +1,41 @@
+{
+	"events": [
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1681578206.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1681578206.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Some blocks on the ground can be picked up!"
+		},
+		{
+			"character": "character-1681578206.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Try pressing the [b]E Key[/b] to pick up the object!\n You can also drop the object by pressing the [b]E Key[/b] again."
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1681588010.json",
+		"name": "Interact"
+	}
+}

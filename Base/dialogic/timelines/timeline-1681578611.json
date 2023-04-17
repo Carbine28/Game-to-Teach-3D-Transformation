@@ -1,0 +1,47 @@
+{
+	"events": [
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1681578206.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1681578206.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Press Tab to enable mouse cursor! Click on the orange blocks using left mouse button to open up the transformation menu!"
+		},
+		{
+			"character": "character-1681578206.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Once you open up the menu, drag blocks in using the left mouse button!. You can modify the transfomation properties using the different blocks. The inputs are colour coded:  \nRed is for the [color=#FF0004]X Axis[/color] Green is for  [color=#A5EFAC]Y Axis[/color] and Blue is for [color=#003aff]Z Axis[/color]"
+		},
+		{
+			"character": "character-1681578206.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Once you dragged the blocks in, press [b]run code[/b]  to see the transformations happen!."
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1681578611.json",
+		"name": "Controls"
+	}
+}

@@ -1,0 +1,3 @@
+Prototype Textures from https://kenney.nl/assets/prototype-textures under the license Creative Commons CC0
+
+All other assets used in game are created in blender by me.
