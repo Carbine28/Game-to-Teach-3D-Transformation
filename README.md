@@ -9,4 +9,4 @@ A game built in the Godot game engine designed to teach the player about 3D tran
 - Score system based on how fast you complete the level.
 
 # Installation
-TOD
+Download `Demo.Zip` file and run the executable
